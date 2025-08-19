@@ -128,47 +128,55 @@ All colors MUST be HSL.
   }
 }
 
-@layer components {
-  /* Pill-shaped input styling */
+@layer utilities {
+  /* Pill-shaped input styling - using utilities to override shadcn defaults */
   .input-pill {
-    height: 24px;
-    border-radius: 12px;
-    width: 80px;
-    padding: 0 16px;
-    background: hsl(var(--chrome-white));
-    border: 1px solid hsl(var(--steel-200));
+    height: 32px !important;
+    border-radius: 16px !important;
+    width: 96px !important;
+    padding: 0 16px !important;
+    background: hsl(var(--chrome-white)) !important;
+    border: 1px solid hsl(var(--steel-200)) !important;
     box-shadow: 
       inset 0 2px 4px hsl(var(--steel-300) / 0.3),
-      inset 0 1px 2px hsl(var(--steel-400) / 0.2);
-    transition: all 0.2s ease;
+      inset 0 1px 2px hsl(var(--steel-400) / 0.2) !important;
+    transition: all 0.2s ease !important;
   }
 
   .input-pill:focus {
-    outline: none;
+    outline: none !important;
     box-shadow: 
       inset 0 2px 4px hsl(var(--steel-300) / 0.3),
       inset 0 1px 2px hsl(var(--steel-400) / 0.2),
-      inset 0 0 0 2px hsl(var(--warm-orange) / 0.3);
+      inset 0 0 0 2px hsl(var(--warm-orange) / 0.3) !important;
+    border-color: transparent !important;
+  }
+
+  .input-pill:focus-visible {
+    ring-width: 0 !important;
+    outline: none !important;
   }
 
   /* Numeric input typography */
   .numeric-input {
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.03em;
-    font-weight: 500;
-    text-align: center;
+    font-variant-numeric: tabular-nums !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 500 !important;
+    text-align: center !important;
   }
 
   .numeric-input::-webkit-outer-spin-button,
   .numeric-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    -webkit-appearance: none !important;
+    margin: 0 !important;
   }
 
   .numeric-input[type=number] {
-    -moz-appearance: textfield;
+    -moz-appearance: textfield !important;
   }
+}
 
+@layer components {
   /* Shadow variants */
   .shadow-large {
     box-shadow: 0 10px 30px -10px hsl(var(--steel-300) / 0.4);

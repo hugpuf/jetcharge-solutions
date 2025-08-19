@@ -13,9 +13,9 @@ export function FormField({ label, value, onChange, prefix, step = "1" }: FormFi
   return (
     <div className="flex items-center justify-between">
       <Label className="text-sm text-steel-600 font-normal">{label}</Label>
-      <div className="relative w-24">
+      <div className="relative">
         {prefix && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-steel-400 pointer-events-none">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-steel-400 pointer-events-none z-10">
             {prefix}
           </span>
         )}
@@ -24,7 +24,7 @@ export function FormField({ label, value, onChange, prefix, step = "1" }: FormFi
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value) || 0)}
-          className={`input-pill numeric-input ${prefix ? 'pl-8' : ''}`}
+          className={`input-pill numeric-input ${prefix ? 'pl-8' : ''} focus-visible:ring-0 focus-visible:ring-offset-0`}
         />
       </div>
     </div>
