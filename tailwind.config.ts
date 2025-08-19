@@ -18,7 +18,25 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				inter: ['Inter', 'sans-serif'],
+			},
 			colors: {
+				// Chrome & Steel Theme
+				steel: {
+					50: 'hsl(var(--steel-50))',
+					100: 'hsl(var(--steel-100))',
+					200: 'hsl(var(--steel-200))',
+					300: 'hsl(var(--steel-300))',
+					400: 'hsl(var(--steel-400))',
+					500: 'hsl(var(--steel-500))',
+					600: 'hsl(var(--steel-600))',
+				},
+				'chrome-white': 'hsl(var(--chrome-white))',
+				'warm-orange': 'hsl(var(--warm-orange))',
+				'warm-amber': 'hsl(var(--warm-amber))',
+				
+				// Design system tokens
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
