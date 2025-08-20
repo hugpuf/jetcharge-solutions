@@ -394,20 +394,7 @@ export default function Calculator() {
               <Button 
                 onClick={() => {
                   if (!siteType) return;
-                  
-                  const quoteData = serializeQuoteData({
-                    siteType,
-                    acCount,
-                    dcCount,
-                    isUnderground,
-                    effectiveRunM: estimate.effectiveRunM,
-                    estimate,
-                    contactName: '',
-                    contactEmail: '',
-                    address: '',
-                  });
-                  
-                  navigate(`/loading?${quoteData}`);
+                  setIsContactModalOpen(true);
                 }}
                 disabled={!siteType}
                 className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -431,6 +418,21 @@ export default function Calculator() {
           runFactor
         }}
         estimate={estimate}
+        onSubmitted={(contactData) => {
+          const quoteData = serializeQuoteData({
+            siteType,
+            acCount,
+            dcCount,
+            isUnderground,
+            effectiveRunM: estimate.effectiveRunM,
+            estimate,
+            contactName: `${contactData.first_name} ${contactData.last_name}`,
+            contactEmail: contactData.email,
+            address: '',
+          });
+          
+          navigate(`/loading?${quoteData}`);
+        }}
       />
     </div>
   );

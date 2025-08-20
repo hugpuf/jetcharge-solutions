@@ -28,11 +28,12 @@ interface ContactModalProps {
   onClose: () => void;
   calculatorState: CalculatorState;
   estimate: Estimate;
+  onSubmitted?: (data: { first_name: string; last_name: string; phone: string; email: string }) => void;
 }
 
 const STORAGE_KEY = "ev-calculator-contact";
 
-export default function ContactModal({ open, onClose, calculatorState, estimate }: ContactModalProps) {
+export default function ContactModal({ open, onClose, calculatorState, estimate, onSubmitted }: ContactModalProps) {
   const [formData, setFormData] = useState<ContactData>({
     first_name: "",
     last_name: "",
@@ -162,6 +163,9 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
       
       // Save contact data to localStorage for future prefill
       localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      
+      // Call onSubmitted callback if provided (for calculator flow)
+      onSubmitted?.(formData);
       
       // Close modal and show success toast
       onClose();
