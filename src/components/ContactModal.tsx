@@ -211,7 +211,7 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
               id="first_name"
               type="text"
               autoComplete="given-name"
-              className="input-pill h-11"
+              className="input-pill input-pill--full input-pill--tall"
               value={formData.first_name}
               onChange={(e) => handleInputChange('first_name', e.target.value)}
               onBlur={(e) => handleInputBlur('first_name', e.target.value)}
@@ -231,7 +231,7 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
               id="last_name"
               type="text"
               autoComplete="family-name"
-              className="input-pill h-11"
+              className="input-pill input-pill--full input-pill--tall"
               value={formData.last_name}
               onChange={(e) => handleInputChange('last_name', e.target.value)}
               onBlur={(e) => handleInputBlur('last_name', e.target.value)}
@@ -251,7 +251,7 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
               id="phone"
               type="tel"
               autoComplete="tel"
-              className="input-pill h-11"
+              className="input-pill input-pill--full input-pill--tall"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               onBlur={(e) => handleInputBlur('phone', e.target.value)}
@@ -271,7 +271,7 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
               id="email"
               type="email"
               autoComplete="email"
-              className="input-pill h-11"
+              className="input-pill input-pill--full input-pill--tall"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               onBlur={(e) => handleInputBlur('email', e.target.value)}
