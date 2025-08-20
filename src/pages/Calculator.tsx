@@ -108,8 +108,8 @@ export default function Calculator() {
 
                 {/* Cable Run Distance - Only show when site is selected */}
                 {siteType && (
-                  <div className="space-y-4 animate-fade-in">
-                    <div className="flex flex-col gap-4">
+                  <div className="space-y-3 animate-fade-in">
+                    <div className="flex items-center gap-4">
                       <div className="flex-1">
                         <Slider
                           value={[scaleIndex]}
@@ -125,8 +125,8 @@ export default function Calculator() {
                           <span>Larger</span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div className="bg-steel-600/50 text-chrome-white/80 p-3 rounded-lg flex items-center justify-between border border-steel-600/20 flex-1">
+                      <div className="flex items-center gap-2">
+                        <div className="bg-steel-600/50 text-chrome-white/80 p-2 rounded-lg flex items-center gap-3 border border-steel-600/20">
                           <div className="text-xs font-medium uppercase tracking-wide">
                             Cable Run
                           </div>
@@ -139,7 +139,7 @@ export default function Calculator() {
                             variant="ghost"
                             size="sm"
                             onClick={() => setScaleIndex(2)}
-                            className="text-xs text-chrome-white/60 hover:text-chrome-white/80 h-6 px-2 ml-3"
+                            className="text-xs text-chrome-white/60 hover:text-chrome-white/80 h-6 px-2"
                           >
                             Reset
                           </Button>
