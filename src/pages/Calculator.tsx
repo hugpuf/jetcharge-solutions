@@ -109,35 +109,37 @@ export default function Calculator() {
                 {/* Cable Run Distance - Only show when site is selected */}
                 {siteType && (
                   <div className="space-y-4 animate-fade-in">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                    <div className="flex flex-col gap-4">
                       <div className="flex-1">
-                        <Label className="text-sm uppercase tracking-wide text-chrome-white/90 mb-3 block">
-                          Cable Run Distance
-                        </Label>
                         <Slider
                           value={[scaleIndex]}
                           onValueChange={(value) => setScaleIndex(value[0])}
                           min={0}
                           max={4}
                           step={1}
-                          className="w-full"
+                          className="w-full [&_[role=slider]]:bg-chrome-white [&_[role=slider]]:border-steel-400 [&>div]:bg-steel-500 [&>div>div]:bg-steel-400"
                         />
-                        <div className="flex justify-between text-xs text-chrome-white/70 mt-2">
+                        <div className="flex justify-between text-xs text-chrome-white/60 mt-2">
                           <span>Smaller</span>
                           <span>Default</span>
                           <span>Larger</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 md:flex-col md:items-end">
-                        <Badge className="bg-steel-600/30 border-steel-600/30 text-chrome-white hover:bg-steel-600/40">
-                          Cable run: {adjustedDistance}m
-                        </Badge>
+                      <div className="flex items-center justify-between">
+                        <div className="bg-steel-600/50 text-chrome-white/80 p-3 rounded-lg flex items-center justify-between border border-steel-600/20 flex-1">
+                          <div className="text-xs font-medium uppercase tracking-wide">
+                            Cable Run
+                          </div>
+                          <div className="text-sm font-medium numeric-input">
+                            {adjustedDistance}m
+                          </div>
+                        </div>
                         {scaleIndex !== 2 && (
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => setScaleIndex(2)}
-                            className="text-xs text-chrome-white/70 hover:text-chrome-white h-6 px-2"
+                            className="text-xs text-chrome-white/60 hover:text-chrome-white/80 h-6 px-2 ml-3"
                           >
                             Reset
                           </Button>
