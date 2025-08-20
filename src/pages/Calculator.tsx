@@ -78,7 +78,7 @@ export default function Calculator() {
                     Site Type
                   </Label>
                   <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
-                    <SelectTrigger className="input-pill h-11 min-w-[220px]">
+                    <SelectTrigger className="input-pill h-11 w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="z-50">
@@ -181,9 +181,9 @@ export default function Calculator() {
 
               {/* Estimate Group */}
               <div className="pt-6 border-t border-steel-600/30">
-                <div className="bg-warm-orange text-chrome-white p-4 rounded-xl text-center border border-warm-orange/20">
-                  <div className="text-sm font-medium uppercase tracking-wide mb-1">
-                    Final Price
+                <div className="bg-steel-600 text-warm-orange p-4 rounded-xl flex items-center justify-between border border-warm-orange/20">
+                  <div className="text-sm font-medium uppercase tracking-wide">
+                    ESTIMATED PRICE
                   </div>
                   <div className="text-2xl font-medium numeric-input">
                     ${finalPrice.toLocaleString()}
