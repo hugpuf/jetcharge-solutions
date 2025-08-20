@@ -78,7 +78,7 @@ export default function Calculator() {
                     Site Type
                   </Label>
                   <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
-                    <SelectTrigger className="input-pill h-11 w-full">
+                    <SelectTrigger className="input-pill h-11 !w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="z-50">
