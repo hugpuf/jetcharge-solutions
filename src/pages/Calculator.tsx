@@ -17,12 +17,17 @@ const siteTypeOptions = [
 ];
 
 export default function Calculator() {
-  const [siteType, setSiteType] = useState<SiteType>('carDealership');
+  const [siteType, setSiteType] = useState<SiteType | null>(null);
   const [acChargers, setAcChargers] = useState(0);
   const [dcChargers, setDcChargers] = useState(0);
   const [underground, setUnderground] = useState(false);
 
   const calculateCost = () => {
+    // Return 0 if no site type is selected
+    if (!siteType) {
+      return { finalPrice: 0 };
+    }
+
     const assumptions = defaultAssumptions;
     const distance = assumptions.siteDistances[siteType];
 
@@ -77,9 +82,9 @@ export default function Calculator() {
                   <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
                     Site Type
                   </Label>
-                  <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
+                  <Select value={siteType || ""} onValueChange={(value: SiteType) => setSiteType(value)}>
                     <SelectTrigger className="input-pill input-pill--tall input-pill--full">
-                      <SelectValue />
+                      <SelectValue placeholder="Select site type" />
                     </SelectTrigger>
                     <SelectContent className="z-50">
                       {siteTypeOptions.map((option) => (
