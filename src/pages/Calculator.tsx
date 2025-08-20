@@ -73,12 +73,12 @@ export default function Calculator() {
               {/* Configuration Group */}
               <div className="space-y-6">
                 {/* Site Type */}
-                <div className="space-y-3">
+                <div className="space-y-3 w-full">
                   <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
                     Site Type
                   </Label>
                   <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
-                    <SelectTrigger className="input-pill h-11 !w-full">
+                    <SelectTrigger className="input-pill input-pill--tall input-pill--full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="z-50">

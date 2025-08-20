@@ -177,6 +177,16 @@ All colors MUST be HSL.
   .numeric-input[type=number] {
     -moz-appearance: textfield !important;
   }
+
+  /* Input pill modifier classes */
+  .input-pill--full {
+    width: 100% !important;
+  }
+
+  .input-pill--tall {
+    height: 44px !important;
+    border-radius: 22px !important;
+  }
 }
 
 @layer components {
