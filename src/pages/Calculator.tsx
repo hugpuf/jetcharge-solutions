@@ -74,7 +74,7 @@ export default function Calculator() {
               </p>
             </CardHeader>
 
-            <CardContent className="space-y-8 pb-6">
+            <CardContent className="space-y-8 pb-16">
               {/* Configuration Group */}
               <div className="space-y-6">
                 {/* Site Type */}
@@ -199,7 +199,7 @@ export default function Calculator() {
           </Card>
 
           {/* Call to Action - Hanging off bottom */}
-          <div className="absolute -bottom-14 left-0 right-0">
+          <div className="absolute -bottom-16 left-0 right-0">
             <Button className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300">
               SEND ME A PRICE BREAKDOWN
             </Button>
