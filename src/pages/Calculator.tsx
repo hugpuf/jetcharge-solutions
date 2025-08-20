@@ -16,12 +16,9 @@ const siteTypeOptions: { value: SiteType; label: string }[] = [
   { value: 'House', label: 'House' },
 ];
 
-// Slider range: 0.5 to 2.0 in steps of 0.05 (30 steps)
-const MIN_FACTOR = 0.5;
-const MAX_FACTOR = 2.0;
-const FACTOR_STEP = 0.05;
-const FACTOR_STEPS = Math.round((MAX_FACTOR - MIN_FACTOR) / FACTOR_STEP);
-const DEFAULT_FACTOR_INDEX = Math.round((1.0 - MIN_FACTOR) / FACTOR_STEP); // Index for 1.0
+// Slider: 5 discrete settings
+const FACTOR_VALUES = [0.5, 0.75, 1.0, 1.5, 2.0]; // Smallest, halfway, default, halfway, largest
+const DEFAULT_FACTOR_INDEX = 2; // Index for 1.0 (default)
 
 export default function Calculator() {
   const [siteType, setSiteType] = useState<SiteType | null>(null);
@@ -30,7 +27,7 @@ export default function Calculator() {
   const [isUnderground, setIsUnderground] = useState(false);
   const [runFactorIndex, setRunFactorIndex] = useState(DEFAULT_FACTOR_INDEX);
 
-  const runFactor = MIN_FACTOR + (runFactorIndex * FACTOR_STEP);
+  const runFactor = FACTOR_VALUES[runFactorIndex];
 
   const calculateEstimate = useCallback(() => {
     if (!siteType) {
@@ -121,7 +118,7 @@ export default function Calculator() {
                             value={[runFactorIndex]}
                             onValueChange={(value) => setRunFactorIndex(value[0])}
                             min={0}
-                            max={FACTOR_STEPS}
+                            max={4}
                             step={1}
                             className="w-full [&_[role=slider]]:bg-chrome-white [&_[role=slider]]:border-steel-400 [&>div]:bg-steel-500 [&>div>div]:bg-steel-400"
                             data-testid="run-slider"
