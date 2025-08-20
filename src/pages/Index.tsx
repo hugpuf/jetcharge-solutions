@@ -181,7 +181,7 @@ const Index = () => {
             <Button
               onClick={handleReset}
               variant="outline"
-              className="flex-1 rounded-lg border-steel-600 text-steel-600 hover:text-warm-orange transition-colors"
+              className="flex-1 rounded-lg border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange transition-colors"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               Reset
