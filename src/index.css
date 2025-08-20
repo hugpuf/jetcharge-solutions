@@ -203,6 +203,19 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
+
+  /* Print styles for A4 quote */
+  @media print {
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+    
+    body {
+      -webkit-print-color-adjust: exact;
+      color-adjust: exact;
+    }
+  }
 }
 
 @layer components {

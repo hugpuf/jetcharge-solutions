@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { Minus, Plus } from "lucide-react";
 import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
+import { serializeQuoteData } from "@/lib/quote";
 import ContactModal from "@/components/ContactModal";
 
 const siteTypeOptions: { value: SiteType; label: string }[] = [
@@ -23,6 +25,7 @@ const FACTOR_VALUES = [0.75, 0.875, 1.0, 1.125, 1.25]; // -25%, -12.5%, default,
 const DEFAULT_FACTOR_INDEX = 2; // Index for 1.0 (default)
 
 export default function Calculator() {
+  const navigate = useNavigate();
   const [siteType, setSiteType] = useState<SiteType | null>(null);
   const [acCount, setAcCount] = useState(0);
   const [dcCount, setDcCount] = useState(0);
@@ -389,8 +392,25 @@ export default function Calculator() {
             {/* Call to Action - Floating separate from steel panel */}
             <div className="absolute -bottom-20 left-0 right-0">
               <Button 
-                onClick={() => setIsContactModalOpen(true)}
-                className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300"
+                onClick={() => {
+                  if (!siteType) return;
+                  
+                  const quoteData = serializeQuoteData({
+                    siteType,
+                    acCount,
+                    dcCount,
+                    isUnderground,
+                    effectiveRunM: estimate.effectiveRunM,
+                    estimate,
+                    contactName: '',
+                    contactEmail: '',
+                    address: '',
+                  });
+                  
+                  navigate(`/loading?${quoteData}`);
+                }}
+                disabled={!siteType}
+                className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 SEND ME A PRICE BREAKDOWN
               </Button>
