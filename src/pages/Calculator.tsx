@@ -64,8 +64,8 @@ export default function Calculator() {
         <div className="w-[35%]">
           <Card className="steel-panel elevation-plate warm-glow h-full">
             <CardHeader className="pb-6">
-              <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white">
-                ⚡ Create Your Station
+              <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
+                CREATE YOUR CHARGING STATION
               </CardTitle>
               <p className="text-sm text-chrome-white/80">
                 Configure your EV charging infrastructure
