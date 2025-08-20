@@ -152,89 +152,6 @@ export default function Calculator() {
               <CardContent className="space-y-8 pb-8">
                 {/* Configuration Group */}
                 <div className="space-y-6">
-                  {/* Site Type */}
-                  <div className="space-y-3 w-full">
-                    <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
-                      Site Type
-                    </Label>
-                    <Select value={siteType || ""} onValueChange={handleSiteTypeChange} data-testid="site-type-select">
-                      <SelectTrigger className="input-pill input-pill--tall input-pill--full">
-                        <SelectValue placeholder="Select site type" />
-                      </SelectTrigger>
-                      <SelectContent className="z-50">
-                        {siteTypeOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Cable Run Distance - Only show when site is selected */}
-                  {siteType && (
-                    <div className="space-y-3 animate-fade-in">
-                      <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
-                        Cable Run Distance
-                      </Label>
-                      <div className="flex items-center gap-4">
-                        <div className="flex-1">
-                          <Slider
-                            value={[runFactorIndex]}
-                            onValueChange={(value) => {
-                              setRunFactorIndex(value[0]);
-                              setCableRunOverride(null);
-                              setIsEditingCableRun(false);
-                            }}
-                            min={0}
-                            max={4}
-                            step={1}
-                            className="w-full [&_[role=slider]]:bg-chrome-white [&_[role=slider]]:border-steel-400 [&>div]:bg-steel-500 [&>div>div]:bg-steel-400"
-                            data-testid="run-slider"
-                          />
-                          <div className="flex justify-between text-xs text-chrome-white/60 mt-2">
-                            <span>Smaller</span>
-                            <span className={runFactorIndex === DEFAULT_FACTOR_INDEX ? "text-warm-orange font-medium" : ""}>Default</span>
-                            <span>Larger</span>
-                          </div>
-                        </div>
-                        <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20" data-testid="run-pill">
-                          <div className="text-xs font-medium uppercase tracking-wide">
-                            CABLE RUN
-                          </div>
-                          <div className="text-sm font-medium numeric-input">
-                            {isEditingCableRun ? (
-                              <input
-                                type="number"
-                                value={cableRunOverride ?? estimate.effectiveRunM}
-                                onChange={(e) => handleCableRunInput(e.target.value)}
-                                onBlur={() => setIsEditingCableRun(false)}
-                                onKeyDown={(e) => {
-                                  if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
-                                  if (e.key === 'Escape') { setCableRunOverride(null); setIsEditingCableRun(false); }
-                                }}
-                                className="bg-transparent border-none outline-none text-warm-orange text-sm font-medium numeric-input w-12 text-right"
-                                min={0}
-                                autoFocus
-                              />
-                            ) : (
-                              <span
-                                role="button"
-                                tabIndex={0}
-                                className="cursor-pointer"
-                                onClick={() => setIsEditingCableRun(true)}
-                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsEditingCableRun(true); }}
-                              >
-                                {estimate.effectiveRunM}
-                              </span>
-                            )}
-                            m
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
                   {/* AC Chargers */}
                   <div className="flex items-center justify-between">
                     <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
@@ -338,6 +255,86 @@ export default function Calculator() {
                       </Button>
                     </div>
                   </div>
+
+                  {/* Site Type */}
+                  <div className="space-y-3 w-full">
+                    <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
+                      Site Type
+                    </Label>
+                    <Select value={siteType || ""} onValueChange={handleSiteTypeChange} data-testid="site-type-select">
+                      <SelectTrigger className="input-pill input-pill--tall input-pill--full">
+                        <SelectValue placeholder="Select site type" />
+                      </SelectTrigger>
+                      <SelectContent className="z-50">
+                        {siteTypeOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Cable Run Distance - Only show when site is selected */}
+                  {siteType && (
+                    <div className="space-y-3 animate-fade-in">
+                      <div className="flex items-center gap-4">
+                        <div className="flex-1">
+                          <Slider
+                            value={[runFactorIndex]}
+                            onValueChange={(value) => {
+                              setRunFactorIndex(value[0]);
+                              setCableRunOverride(null);
+                              setIsEditingCableRun(false);
+                            }}
+                            min={0}
+                            max={4}
+                            step={1}
+                            className="w-full [&_[role=slider]]:bg-chrome-white [&_[role=slider]]:border-steel-400 [&>div]:bg-steel-500 [&>div>div]:bg-steel-400"
+                            data-testid="run-slider"
+                          />
+                          <div className="flex justify-between text-xs text-chrome-white/60 mt-2">
+                            <span>Smaller</span>
+                            <span className={runFactorIndex === DEFAULT_FACTOR_INDEX ? "text-warm-orange font-medium" : ""}>Default</span>
+                            <span>Larger</span>
+                          </div>
+                        </div>
+                        <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20" data-testid="run-pill">
+                          <div className="text-xs font-medium uppercase tracking-wide">
+                            CABLE RUN
+                          </div>
+                          <div className="text-sm font-medium numeric-input">
+                            {isEditingCableRun ? (
+                              <input
+                                type="number"
+                                value={cableRunOverride ?? estimate.effectiveRunM}
+                                onChange={(e) => handleCableRunInput(e.target.value)}
+                                onBlur={() => setIsEditingCableRun(false)}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
+                                  if (e.key === 'Escape') { setCableRunOverride(null); setIsEditingCableRun(false); }
+                                }}
+                                className="bg-transparent border-none outline-none text-warm-orange text-sm font-medium numeric-input w-12 text-right"
+                                min={0}
+                                autoFocus
+                              />
+                            ) : (
+                              <span
+                                role="button"
+                                tabIndex={0}
+                                className="cursor-pointer"
+                                onClick={() => setIsEditingCableRun(true)}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsEditingCableRun(true); }}
+                              >
+                                {estimate.effectiveRunM}
+                              </span>
+                            )}
+                            m
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Installation Type - Segmented Control */}
                   <div className="flex items-center justify-between">
