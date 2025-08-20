@@ -11,7 +11,7 @@ import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
 import { serializeQuoteData } from "@/lib/quote";
 import ContactModal from "@/components/ContactModal";
-import chargingStationIsometric from "@/assets/charging-station-isometric.webp";
+import chargingStationLineArt from "@/assets/charging-station-line-art.webp";
 
 const siteTypeOptions: { value: SiteType; label: string }[] = [
   { value: 'Car Dealership', label: 'Car Dealership' },
@@ -137,9 +137,9 @@ export default function Calculator() {
           <div className="order-1 lg:order-1 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
             <div className="w-full max-w-lg">
               <img 
-                src={chargingStationIsometric} 
-                alt="Isometric 3D illustration of a modern EV charging station with energy flowing from building to car"
-                className="w-full h-auto object-contain animate-fade-in"
+                src={chargingStationLineArt} 
+                alt="Single line drawing of an EV charging station"
+                className="w-full h-auto object-contain animate-fade-in animate-[float_3s_ease-in-out_infinite]"
               />
             </div>
           </div>
