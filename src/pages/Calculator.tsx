@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Badge } from "@/components/ui/badge";
 import { defaultAssumptions } from "@/types/assumptions";
 import { Minus, Plus } from "lucide-react";
 
@@ -16,38 +18,47 @@ const siteTypeOptions = [
   { value: 'house', label: 'House' },
 ];
 
+const SCALE_STEPS = [0.75, 0.875, 1, 1.125, 1.25];
+
 export default function Calculator() {
   const [siteType, setSiteType] = useState<SiteType | null>(null);
   const [acChargers, setAcChargers] = useState(0);
   const [dcChargers, setDcChargers] = useState(0);
   const [underground, setUnderground] = useState(false);
+  const [scaleIndex, setScaleIndex] = useState(2); // Default to middle (1x scale)
 
   const calculateCost = () => {
     // Return 0 if no site type is selected
     if (!siteType) {
-      return { finalPrice: 0 };
+      return { finalPrice: 0, baseDistance: 0, adjustedDistance: 0 };
     }
 
     const assumptions = defaultAssumptions;
-    const distance = assumptions.siteDistances[siteType];
+    const baseDistance = assumptions.siteDistances[siteType];
+    const adjustedDistance = Math.round(baseDistance * SCALE_STEPS[scaleIndex]);
 
     const acCost = acChargers * assumptions.chargerPrices.ac;
     const dcCost = dcChargers * assumptions.chargerPrices.dc;
 
-    const acCableCost = acChargers * distance * assumptions.cableCosts.ac;
-    const dcCableCost = dcChargers * distance * assumptions.cableCosts.dc;
+    const acCableCost = acChargers * adjustedDistance * assumptions.cableCosts.ac;
+    const dcCableCost = dcChargers * adjustedDistance * assumptions.cableCosts.dc;
 
     const carrierCostPerMeter = underground ? assumptions.carrierCosts.trench : assumptions.carrierCosts.tray;
-    const totalDistance = (acChargers + dcChargers) * distance;
+    const totalDistance = (acChargers + dcChargers) * adjustedDistance;
     const carrierCost = totalDistance * carrierCostPerMeter;
 
     const baseCost = acCost + dcCost + acCableCost + dcCableCost + carrierCost;
     const finalPrice = baseCost * (1 + assumptions.labourMarkup / 100);
 
-    return { finalPrice: Math.round(finalPrice) };
+    return { finalPrice: Math.round(finalPrice), baseDistance, adjustedDistance };
   };
 
-  const { finalPrice } = calculateCost();
+  const { finalPrice, adjustedDistance } = calculateCost();
+
+  const handleSiteTypeChange = (value: SiteType) => {
+    setSiteType(value);
+    setScaleIndex(2); // Reset to default scale when site changes
+  };
 
   return (
     <div className="min-h-screen bg-gradient-warm-sweep flex items-center justify-center p-4">
@@ -81,7 +92,7 @@ export default function Calculator() {
                   <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
                     Site Type
                   </Label>
-                  <Select value={siteType || ""} onValueChange={(value: SiteType) => setSiteType(value)}>
+                  <Select value={siteType || ""} onValueChange={handleSiteTypeChange}>
                     <SelectTrigger className="input-pill input-pill--tall input-pill--full">
                       <SelectValue placeholder="Select site type" />
                     </SelectTrigger>
@@ -94,6 +105,47 @@ export default function Calculator() {
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* Cable Run Distance - Only show when site is selected */}
+                {siteType && (
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                      <div className="flex-1">
+                        <Label className="text-sm uppercase tracking-wide text-chrome-white/90 mb-3 block">
+                          Cable Run Distance
+                        </Label>
+                        <Slider
+                          value={[scaleIndex]}
+                          onValueChange={(value) => setScaleIndex(value[0])}
+                          min={0}
+                          max={4}
+                          step={1}
+                          className="w-full"
+                        />
+                        <div className="flex justify-between text-xs text-chrome-white/70 mt-2">
+                          <span>Smaller</span>
+                          <span>Default</span>
+                          <span>Larger</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 md:flex-col md:items-end">
+                        <Badge className="bg-steel-600/30 border-steel-600/30 text-chrome-white hover:bg-steel-600/40">
+                          Cable run: {adjustedDistance}m
+                        </Badge>
+                        {scaleIndex !== 2 && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setScaleIndex(2)}
+                            className="text-xs text-chrome-white/70 hover:text-chrome-white h-6 px-2"
+                          >
+                            Reset
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* AC Chargers */}
                 <div className="flex items-center justify-between">
