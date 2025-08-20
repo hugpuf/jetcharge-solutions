@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Input } from "@/components/ui/input";
+
 import { Minus, Plus } from "lucide-react";
 import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
@@ -251,7 +251,7 @@ export default function Calculator() {
                         <Minus className="h-4 w-4" />
                       </Button>
                       {isEditingAc ? (
-                        <Input
+                        <input
                           type="number"
                           value={acCountOverride || String(acCount)}
                           onChange={(e) => handleAcCountInput(e.target.value)}
@@ -260,8 +260,8 @@ export default function Calculator() {
                             if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
                             if (e.key === 'Escape') { setAcCountOverride(""); setIsEditingAc(false); }
                           }}
-                          className="input-pill numeric-input w-16 h-8 text-xs text-center"
-                          min="0"
+                          className="bg-transparent border-none outline-none text-chrome-white font-medium text-center numeric-input w-8 caret-warm-orange"
+                          min={0}
                           autoFocus
                         />
                       ) : (
@@ -303,7 +303,7 @@ export default function Calculator() {
                         <Minus className="h-4 w-4" />
                       </Button>
                       {isEditingDc ? (
-                        <Input
+                        <input
                           type="number"
                           value={dcCountOverride || String(dcCount)}
                           onChange={(e) => handleDcCountInput(e.target.value)}
@@ -312,8 +312,8 @@ export default function Calculator() {
                             if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
                             if (e.key === 'Escape') { setDcCountOverride(""); setIsEditingDc(false); }
                           }}
-                          className="input-pill numeric-input w-16 h-8 text-xs text-center"
-                          min="0"
+                          className="bg-transparent border-none outline-none text-chrome-white font-medium text-center numeric-input w-8 caret-warm-orange"
+                          min={0}
                           autoFocus
                         />
                       ) : (
