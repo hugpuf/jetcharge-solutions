@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import { Minus, Plus } from "lucide-react";
 import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
@@ -28,6 +29,11 @@ export default function Calculator() {
   const [isUnderground, setIsUnderground] = useState(false);
   const [runFactorIndex, setRunFactorIndex] = useState(DEFAULT_FACTOR_INDEX);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  
+  // Direct input overrides
+  const [cableRunOverride, setCableRunOverride] = useState<number | null>(null);
+  const [acCountOverride, setAcCountOverride] = useState<string>("");
+  const [dcCountOverride, setDcCountOverride] = useState<string>("");
 
   const runFactor = FACTOR_VALUES[runFactorIndex];
 
@@ -44,14 +50,26 @@ export default function Calculator() {
     }
 
     const assumptions = assumptionsStore.getAssumptions();
-    return computeEstimate({
+    const baseEstimate = computeEstimate({
       siteType,
       acCount,
       dcCount,
       isUnderground,
       runFactor
     }, assumptions);
-  }, [siteType, acCount, dcCount, isUnderground, runFactor]);
+
+    // Apply cable run override if set
+    if (cableRunOverride !== null) {
+      const overriddenEstimate = { ...baseEstimate };
+      overriddenEstimate.effectiveRunM = cableRunOverride;
+      overriddenEstimate.cablingCost = cableRunOverride * baseEstimate.perMeterRate;
+      overriddenEstimate.cost = overriddenEstimate.cablingCost + baseEstimate.chargerCost;
+      overriddenEstimate.finalPrice = overriddenEstimate.cost * (1 + assumptions.labourMarkupPct / 100);
+      return overriddenEstimate;
+    }
+
+    return baseEstimate;
+  }, [siteType, acCount, dcCount, isUnderground, runFactor, cableRunOverride]);
 
   const estimate = calculateEstimate();
 
@@ -60,10 +78,47 @@ export default function Calculator() {
     setRunFactorIndex(DEFAULT_FACTOR_INDEX); // Reset to default factor
   };
 
-  const handleAcIncrement = () => setAcCount(prev => prev + 1);
-  const handleAcDecrement = () => setAcCount(prev => Math.max(0, prev - 1));
-  const handleDcIncrement = () => setDcCount(prev => prev + 1);
-  const handleDcDecrement = () => setDcCount(prev => Math.max(0, prev - 1));
+  const handleAcIncrement = () => {
+    setAcCount(prev => prev + 1);
+    setAcCountOverride("");
+  };
+  const handleAcDecrement = () => {
+    setAcCount(prev => Math.max(0, prev - 1));
+    setAcCountOverride("");
+  };
+  const handleDcIncrement = () => {
+    setDcCount(prev => prev + 1);
+    setDcCountOverride("");
+  };
+  const handleDcDecrement = () => {
+    setDcCount(prev => Math.max(0, prev - 1));
+    setDcCountOverride("");
+  };
+
+  const handleCableRunInput = (value: string) => {
+    const numValue = parseInt(value);
+    if (isNaN(numValue) || numValue < 0) {
+      setCableRunOverride(null);
+    } else {
+      setCableRunOverride(numValue);
+    }
+  };
+
+  const handleAcCountInput = (value: string) => {
+    setAcCountOverride(value);
+    const numValue = parseInt(value);
+    if (!isNaN(numValue) && numValue >= 0) {
+      setAcCount(numValue);
+    }
+  };
+
+  const handleDcCountInput = (value: string) => {
+    setDcCountOverride(value);
+    const numValue = parseInt(value);
+    if (!isNaN(numValue) && numValue >= 0) {
+      setDcCount(numValue);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-warm-sweep flex items-center justify-center p-4">
@@ -114,11 +169,17 @@ export default function Calculator() {
                   {/* Cable Run Distance - Only show when site is selected */}
                   {siteType && (
                     <div className="space-y-3 animate-fade-in">
+                      <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
+                        Cable Run Distance
+                      </Label>
                       <div className="flex items-center gap-4">
                         <div className="flex-1">
                           <Slider
                             value={[runFactorIndex]}
-                            onValueChange={(value) => setRunFactorIndex(value[0])}
+                            onValueChange={(value) => {
+                              setRunFactorIndex(value[0]);
+                              setCableRunOverride(null);
+                            }}
                             min={0}
                             max={4}
                             step={1}
@@ -131,12 +192,21 @@ export default function Calculator() {
                             <span>Larger</span>
                           </div>
                         </div>
-                        <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20" data-testid="run-pill">
-                          <div className="text-xs font-medium uppercase tracking-wide">
-                            CABLE RUN
-                          </div>
-                          <div className="text-sm font-medium numeric-input">
-                            {estimate.effectiveRunM}m
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Override"
+                            value={cableRunOverride ?? ""}
+                            onChange={(e) => handleCableRunInput(e.target.value)}
+                            className="input-pill numeric-input w-20 h-8 text-xs"
+                          />
+                          <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20" data-testid="run-pill">
+                            <div className="text-xs font-medium uppercase tracking-wide">
+                              CABLE RUN
+                            </div>
+                            <div className="text-sm font-medium numeric-input">
+                              {estimate.effectiveRunM}m
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -158,7 +228,13 @@ export default function Calculator() {
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
-                      <span className="text-chrome-white font-medium w-8 text-center" data-testid="ac-count">{acCount}</span>
+                      <Input
+                        type="number"
+                        value={acCountOverride || acCount}
+                        onChange={(e) => handleAcCountInput(e.target.value)}
+                        className="input-pill numeric-input w-16 h-8 text-xs text-center"
+                        min="0"
+                      />
                       <Button
                         variant="outline"
                         size="sm"
@@ -185,7 +261,13 @@ export default function Calculator() {
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
-                      <span className="text-chrome-white font-medium w-8 text-center" data-testid="dc-count">{dcCount}</span>
+                      <Input
+                        type="number"
+                        value={dcCountOverride || dcCount}
+                        onChange={(e) => handleDcCountInput(e.target.value)}
+                        className="input-pill numeric-input w-16 h-8 text-xs text-center"
+                        min="0"
+                      />
                       <Button
                         variant="outline"
                         size="sm"
