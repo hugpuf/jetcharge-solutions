@@ -25,36 +25,33 @@ export default function Calculator() {
   const calculateCost = () => {
     const assumptions = defaultAssumptions;
     const distance = assumptions.siteDistances[siteType];
-    
-    // Base charger costs
+
     const acCost = acChargers * assumptions.chargerPrices.ac;
     const dcCost = dcChargers * assumptions.chargerPrices.dc;
-    
-    // Cable costs based on distance and charger type
+
     const acCableCost = acChargers * distance * assumptions.cableCosts.ac;
     const dcCableCost = dcChargers * distance * assumptions.cableCosts.dc;
-    
-    // Carrier costs (trenching vs tray based on underground option)
+
     const carrierCostPerMeter = underground ? assumptions.carrierCosts.trench : assumptions.carrierCosts.tray;
     const totalDistance = (acChargers + dcChargers) * distance;
     const carrierCost = totalDistance * carrierCostPerMeter;
-    
+
     const baseCost = acCost + dcCost + acCableCost + dcCableCost + carrierCost;
     const finalPrice = baseCost * (1 + assumptions.labourMarkup / 100);
-    
+
     return { finalPrice: Math.round(finalPrice) };
   };
 
   const { finalPrice } = calculateCost();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#EDECE7] to-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-steel-50 to-steel-100 p-6">
       <div className="container mx-auto h-full flex gap-8">
         {/* Left side - Empty for now */}
         <div className="flex-1">
           <div className="h-full flex items-center justify-center">
-            <div className="text-center text-[#26252A]/60">
-              <h2 className="text-xl font-medium mb-2">Station Preview</h2>
+            <div className="text-center text-steel-400">
+              <h2 className="text-2xl font-medium mb-2">Character Preview</h2>
               <p className="text-sm">Your charging station visualization will appear here</p>
             </div>
           </div>
@@ -62,29 +59,29 @@ export default function Calculator() {
 
         {/* Right side - Calculator Panel (35% width) */}
         <div className="w-[35%]">
-          <Card className="bg-[#26252A] rounded-[2px] shadow-[0_8px_24px_rgba(38,37,42,0.18),0_1px_3px_rgba(38,37,42,0.12)] h-full border-0">
-            <CardHeader className="text-center space-y-2 pb-6">
-              <CardTitle className="text-lg font-semibold tracking-tight text-white">
-                Create Your Charging Station
+          <Card className="steel-panel elevation-plate warm-glow h-full">
+            <CardHeader className="pb-6">
+              <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
+                CREATE YOUR CHARGING STATION
               </CardTitle>
-              <p className="text-sm text-white/70">
+              <p className="text-sm text-chrome-white/80 text-center">
                 Configure your EV charging infrastructure
               </p>
             </CardHeader>
-            
-            <CardContent className="space-y-6">
+
+            <CardContent className="space-y-8">
               {/* Configuration Group */}
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {/* Site Type */}
                 <div className="space-y-3">
-                  <Label className="text-sm text-white/90 block">
-                    Site type
+                  <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
+                    Site Type
                   </Label>
                   <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
-                    <SelectTrigger className="w-full h-10 rounded-[2px] border-[#26252A]/20 bg-white text-[#26252A] min-w-[200px]">
+                    <SelectTrigger className="input-pill h-11 min-w-[220px]">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="rounded-[2px]">
+                    <SelectContent className="z-50">
                       {siteTypeOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
@@ -96,24 +93,24 @@ export default function Calculator() {
 
                 {/* AC Chargers */}
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm text-white/90">
-                    AC chargers
+                  <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
+                    AC Chargers
                   </Label>
                   <div className="flex items-center gap-2">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      className="h-8 w-8 p-0 rounded-xl border-steel-600/30 bg-transparent text-chrome-white hover:bg-white/10"
                       onClick={() => setAcChargers(Math.max(0, acChargers - 1))}
                       disabled={acChargers === 0}
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="text-white font-medium w-8 text-center">{acChargers}</span>
+                    <span className="text-chrome-white font-medium w-8 text-center">{acChargers}</span>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      className="h-8 w-8 p-0 rounded-xl border-steel-600/30 bg-transparent text-chrome-white hover:bg-white/10"
                       onClick={() => setAcChargers(acChargers + 1)}
                     >
                       <Plus className="h-4 w-4" />
@@ -123,24 +120,24 @@ export default function Calculator() {
 
                 {/* DC Fast Chargers */}
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm text-white/90">
-                    DC fast chargers
+                  <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
+                    DC Fast Chargers
                   </Label>
                   <div className="flex items-center gap-2">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      className="h-8 w-8 p-0 rounded-xl border-steel-600/30 bg-transparent text-chrome-white hover:bg-white/10"
                       onClick={() => setDcChargers(Math.max(0, dcChargers - 1))}
                       disabled={dcChargers === 0}
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="text-white font-medium w-8 text-center">{dcChargers}</span>
+                    <span className="text-chrome-white font-medium w-8 text-center">{dcChargers}</span>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      className="h-8 w-8 p-0 rounded-xl border-steel-600/30 bg-transparent text-chrome-white hover:bg-white/10"
                       onClick={() => setDcChargers(dcChargers + 1)}
                     >
                       <Plus className="h-4 w-4" />
@@ -148,19 +145,19 @@ export default function Calculator() {
                   </div>
                 </div>
 
-                {/* Installation Type */}
+                {/* Installation Type - Segmented Control */}
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm text-white/90">
-                    Installation type
+                  <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
+                    Installation Type
                   </Label>
-                  <div className="flex rounded-[2px] border border-white/20 bg-transparent">
+                  <div className="flex rounded-xl border border-steel-600/30 bg-steel-600/20 p-1">
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={`h-8 px-3 rounded-[2px] text-xs font-medium ${
-                        !underground 
-                          ? 'bg-white text-[#26252A]' 
-                          : 'text-white hover:bg-white/10'
+                      className={`h-8 px-3 rounded-lg text-xs font-medium ${
+                        !underground
+                          ? 'bg-chrome-white text-steel-600'
+                          : 'text-chrome-white hover:bg-white/10'
                       }`}
                       onClick={() => setUnderground(false)}
                     >
@@ -169,10 +166,10 @@ export default function Calculator() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={`h-8 px-3 rounded-[2px] text-xs font-medium ${
-                        underground 
-                          ? 'bg-white text-[#26252A]' 
-                          : 'text-white hover:bg-white/10'
+                      className={`h-8 px-3 rounded-lg text-xs font-medium ${
+                        underground
+                          ? 'bg-chrome-white text-steel-600'
+                          : 'text-chrome-white hover:bg-white/10'
                       }`}
                       onClick={() => setUnderground(true)}
                     >
@@ -183,12 +180,12 @@ export default function Calculator() {
               </div>
 
               {/* Estimate Group */}
-              <div className="pt-6 border-t border-white/10">
-                <div className="bg-[#F5841A] text-white p-4 rounded-[2px] text-center">
+              <div className="pt-6 border-t border-steel-600/30">
+                <div className="bg-warm-orange text-chrome-white p-4 rounded-xl text-center border border-warm-orange/20">
                   <div className="text-sm font-medium uppercase tracking-wide mb-1">
                     Final Price
                   </div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-2xl font-medium numeric-input">
                     ${finalPrice.toLocaleString()}
                   </div>
                 </div>
