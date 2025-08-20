@@ -35,6 +35,11 @@ export default function Calculator() {
   const [acCountOverride, setAcCountOverride] = useState<string>("");
   const [dcCountOverride, setDcCountOverride] = useState<string>("");
 
+  // Inline edit states
+  const [isEditingCableRun, setIsEditingCableRun] = useState(false);
+  const [isEditingAc, setIsEditingAc] = useState(false);
+  const [isEditingDc, setIsEditingDc] = useState(false);
+
   const runFactor = FACTOR_VALUES[runFactorIndex];
 
   const calculateEstimate = useCallback(() => {
@@ -179,6 +184,7 @@ export default function Calculator() {
                             onValueChange={(value) => {
                               setRunFactorIndex(value[0]);
                               setCableRunOverride(null);
+                              setIsEditingCableRun(false);
                             }}
                             min={0}
                             max={4}
@@ -192,21 +198,36 @@ export default function Calculator() {
                             <span>Larger</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Input
-                            type="number"
-                            placeholder="Override"
-                            value={cableRunOverride ?? ""}
-                            onChange={(e) => handleCableRunInput(e.target.value)}
-                            className="input-pill numeric-input w-20 h-8 text-xs"
-                          />
-                          <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20" data-testid="run-pill">
-                            <div className="text-xs font-medium uppercase tracking-wide">
-                              CABLE RUN
-                            </div>
-                            <div className="text-sm font-medium numeric-input">
-                              {estimate.effectiveRunM}m
-                            </div>
+                        <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20" data-testid="run-pill">
+                          <div className="text-xs font-medium uppercase tracking-wide">
+                            CABLE RUN
+                          </div>
+                          <div className="text-sm font-medium numeric-input">
+                            {isEditingCableRun ? (
+                              <Input
+                                type="number"
+                                value={cableRunOverride ?? estimate.effectiveRunM}
+                                onChange={(e) => handleCableRunInput(e.target.value)}
+                                onBlur={() => setIsEditingCableRun(false)}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
+                                  if (e.key === 'Escape') { setCableRunOverride(null); setIsEditingCableRun(false); }
+                                }}
+                                className="input-pill numeric-input w-20 h-8 text-xs"
+                                min={0}
+                                autoFocus
+                              />
+                            ) : (
+                              <span
+                                role="button"
+                                tabIndex={0}
+                                className="cursor-pointer"
+                                onClick={() => setIsEditingCableRun(true)}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsEditingCableRun(true); }}
+                              >
+                                {estimate.effectiveRunM}m
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -228,13 +249,32 @@ export default function Calculator() {
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
-                      <Input
-                        type="number"
-                        value={acCountOverride || acCount}
-                        onChange={(e) => handleAcCountInput(e.target.value)}
-                        className="input-pill numeric-input w-16 h-8 text-xs text-center"
-                        min="0"
-                      />
+                      {isEditingAc ? (
+                        <Input
+                          type="number"
+                          value={acCountOverride || String(acCount)}
+                          onChange={(e) => handleAcCountInput(e.target.value)}
+                          onBlur={() => { setIsEditingAc(false); }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
+                            if (e.key === 'Escape') { setAcCountOverride(""); setIsEditingAc(false); }
+                          }}
+                          className="input-pill numeric-input w-16 h-8 text-xs text-center"
+                          min="0"
+                          autoFocus
+                        />
+                      ) : (
+                        <span
+                          className="text-chrome-white font-medium w-8 text-center cursor-pointer"
+                          data-testid="ac-count"
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => setIsEditingAc(true)}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsEditingAc(true); }}
+                        >
+                          {acCount}
+                        </span>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
@@ -261,13 +301,32 @@ export default function Calculator() {
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
-                      <Input
-                        type="number"
-                        value={dcCountOverride || dcCount}
-                        onChange={(e) => handleDcCountInput(e.target.value)}
-                        className="input-pill numeric-input w-16 h-8 text-xs text-center"
-                        min="0"
-                      />
+                      {isEditingDc ? (
+                        <Input
+                          type="number"
+                          value={dcCountOverride || String(dcCount)}
+                          onChange={(e) => handleDcCountInput(e.target.value)}
+                          onBlur={() => { setIsEditingDc(false); }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
+                            if (e.key === 'Escape') { setDcCountOverride(""); setIsEditingDc(false); }
+                          }}
+                          className="input-pill numeric-input w-16 h-8 text-xs text-center"
+                          min="0"
+                          autoFocus
+                        />
+                      ) : (
+                        <span
+                          className="text-chrome-white font-medium w-8 text-center cursor-pointer"
+                          data-testid="dc-count"
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => setIsEditingDc(true)}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsEditingDc(true); }}
+                        >
+                          {dcCount}
+                        </span>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
