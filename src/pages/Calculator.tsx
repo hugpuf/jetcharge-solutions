@@ -27,7 +27,7 @@ const DEFAULT_FACTOR_INDEX = 2; // Index for 1.0 (default)
 
 export default function Calculator() {
   const navigate = useNavigate();
-  const [siteType, setSiteType] = useState<SiteType | null>(null);
+  const [siteType, setSiteType] = useState<SiteType | null>('Public Station');
   const [acCount, setAcCount] = useState(0);
   const [dcCount, setDcCount] = useState(0);
   const [isUnderground, setIsUnderground] = useState(false);
