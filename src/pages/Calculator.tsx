@@ -199,8 +199,8 @@ export default function Calculator() {
           </Card>
 
           {/* Call to Action - Hanging off bottom */}
-          <div className="absolute -bottom-6 left-0 right-0">
-            <Button className="w-full h-12 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-sm uppercase tracking-wide rounded-xl shadow-warm hover:shadow-lg transition-all duration-300">
+          <div className="absolute -bottom-14 left-0 right-0">
+            <Button className="floating-cta w-full h-12 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-sm uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300">
               SEND ME A PRICE BREAKDOWN
             </Button>
           </div>

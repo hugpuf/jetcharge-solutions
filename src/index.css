@@ -210,6 +210,14 @@ All colors MUST be HSL.
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Floating CTA with persistent elevation */
+  .floating-cta {
+    transform: translateZ(0);
+    box-shadow: 
+      0 8px 25px -8px hsl(var(--warm-orange) / 0.4),
+      0 4px 15px -4px hsl(var(--steel-600) / 0.2) !important;
+  }
+
 
   /* Carbon Steel Panel */
   .steel-panel {
