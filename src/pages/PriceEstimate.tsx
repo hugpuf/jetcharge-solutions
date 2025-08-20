@@ -2,85 +2,70 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Download, Phone } from 'lucide-react';
-import { 
-  deserializeQuoteData, 
-  generateQuoteNumber, 
-  calculateQuoteMetrics,
-  type QuoteData 
-} from '@/lib/quote';
+import { deserializeQuoteData, generateQuoteNumber, calculateQuoteMetrics, type QuoteData } from '@/lib/quote';
 import { fmtMoney } from '@/lib/estimate';
 import { assumptionsStore } from '@/lib/assumptions';
 import ContactModal from '@/components/ContactModal';
-
 export default function PriceEstimate() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  
+
   // Deserialize quote data from URL parameters
   const quoteData = deserializeQuoteData(searchParams);
-  
+
   // If missing essential data, redirect to calculator
   if (!quoteData.siteType || !quoteData.estimate) {
-    navigate('/calculator', { replace: true });
+    navigate('/calculator', {
+      replace: true
+    });
     return null;
   }
-  
+
   // Generate quote metadata
   const quoteNumber = generateQuoteNumber();
   const now = new Date();
-  const dateGenerated = now.toLocaleDateString('en-AU', { 
-    day: '2-digit', 
-    month: 'short', 
-    year: 'numeric' 
+  const dateGenerated = now.toLocaleDateString('en-AU', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
   });
   const validUntil = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-AU', {
     day: '2-digit',
-    month: 'short', 
+    month: 'short',
     year: 'numeric'
   });
-  
+
   // Calculate derived metrics and cost breakdowns
   const metrics = calculateQuoteMetrics(quoteData.estimate!, quoteData.siteType!);
   const assumptions = assumptionsStore.getAssumptions();
-  
+
   // Calculate individual cost components
   const chargerHardwareCost = quoteData.estimate!.chargerCost;
-  
+
   // Break down cabling cost into cable installation vs carrier
   const carrierCostPerM = quoteData.isUnderground ? assumptions.carrierPerM.trench : assumptions.carrierPerM.tray;
-  const cableCostPerM = (quoteData.acCount || 0) * assumptions.cableCostPerM.ac + 
-                        (quoteData.dcCount || 0) * assumptions.cableCostPerM.dc;
-  
+  const cableCostPerM = (quoteData.acCount || 0) * assumptions.cableCostPerM.ac + (quoteData.dcCount || 0) * assumptions.cableCostPerM.dc;
   const cableInstallationCost = (quoteData.effectiveRunM || 0) * cableCostPerM;
   const carrierCost = (quoteData.effectiveRunM || 0) * carrierCostPerM;
-  
+
   // Installation & commissioning is the markup applied to base costs
   const baseCost = quoteData.estimate!.cost;
   const installationCommissioningCost = quoteData.estimate!.finalPrice - baseCost;
-  
   const savings = metrics.incumbentAnnualPrice - quoteData.estimate!.finalPrice;
   const monthlyEquivalent = quoteData.estimate!.finalPrice / 12;
-  
   const handleEditInputs = () => {
     navigate('/');
   };
-  
   const handlePrint = () => {
     window.print();
   };
-  
   const handleContactSales = () => {
     setIsContactModalOpen(true);
   };
-  
-  return (
-    <>
+  return <>
       <main className="min-h-screen bg-gradient-warm-sweep flex items-center justify-center p-6 print:bg-white print:p-0">
-        <section
-          aria-label="Price Estimate"
-          className="relative w-[794px] max-w-full aspect-[210/297] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none overflow-hidden print:overflow-visible"
-        >
+        <section aria-label="Price Estimate" className="relative w-[794px] max-w-full aspect-[210/297] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none overflow-hidden print:overflow-visible">
           {/* Neon edge glow - hidden in print */}
           <div className="pointer-events-none absolute inset-0 rounded-xl shadow-warm print:hidden" />
           
@@ -110,18 +95,7 @@ export default function PriceEstimate() {
                 ≈ {fmtMoney(monthlyEquivalent)}/mo
               </div>
             </div>
-            <div className="border border-steel-200 rounded-lg p-4">
-              <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                Compared to Traditional Setup
-              </div>
-              <div className="text-2xl font-mono font-semibold text-steel-600">
-                {fmtMoney(metrics.incumbentAnnualPrice)}
-              </div>
-              <div className="text-xs mt-2 text-steel-400">Estimated savings</div>
-              <div className="text-lg font-mono font-semibold text-warm-orange">
-                {savings >= 0 ? '+' : '–'}{fmtMoney(Math.abs(savings))}
-              </div>
-            </div>
+            
           </div>
           
           {/* Site Details */}
@@ -278,27 +252,16 @@ export default function PriceEstimate() {
           
           {/* Footer Actions */}
           <footer className="p-6 flex gap-3 justify-between print:hidden">
-            <Button 
-              variant="outline" 
-              className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange"
-              onClick={handleEditInputs}
-            >
+            <Button variant="outline" className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange" onClick={handleEditInputs}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Edit Inputs
             </Button>
             <div className="flex gap-3">
-              <Button 
-                variant="outline"
-                className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange"
-                onClick={handlePrint}
-              >
+              <Button variant="outline" className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange" onClick={handlePrint}>
                 <Download className="w-4 h-4 mr-2" />
                 Download / Print
               </Button>
-              <Button 
-                className="bg-warm-orange text-chrome-white hover:bg-warm-amber"
-                onClick={handleContactSales}
-              >
+              <Button className="bg-warm-orange text-chrome-white hover:bg-warm-amber" onClick={handleContactSales}>
                 <Phone className="w-4 h-4 mr-2" />
                 Contact Sales
               </Button>
@@ -308,20 +271,12 @@ export default function PriceEstimate() {
       </main>
       
       {/* Contact Modal */}
-      {isContactModalOpen && (
-        <ContactModal
-          open={isContactModalOpen}
-          onClose={() => setIsContactModalOpen(false)}
-          calculatorState={{
-            siteType: quoteData.siteType!,
-            acCount: quoteData.acCount || 0,
-            dcCount: quoteData.dcCount || 0,
-            isUnderground: quoteData.isUnderground || false,
-            runFactor: 1.0,
-          }}
-          estimate={quoteData.estimate!}
-        />
-      )}
-    </>
-  );
+      {isContactModalOpen && <ContactModal open={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} calculatorState={{
+      siteType: quoteData.siteType!,
+      acCount: quoteData.acCount || 0,
+      dcCount: quoteData.dcCount || 0,
+      isUnderground: quoteData.isUnderground || false,
+      runFactor: 1.0
+    }} estimate={quoteData.estimate!} />}
+    </>;
 }
