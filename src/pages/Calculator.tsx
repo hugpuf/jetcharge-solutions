@@ -63,7 +63,7 @@ export default function Calculator() {
         </div>
 
         {/* Right side - Calculator Panel (35% width) */}
-        <div className="w-[35%]">
+        <div className="w-[35%] relative">
           <Card className="steel-panel elevation-plate h-full">
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
@@ -74,7 +74,7 @@ export default function Calculator() {
               </p>
             </CardHeader>
 
-            <CardContent className="space-y-8">
+            <CardContent className="space-y-8 pb-20">
               {/* Configuration Group */}
               <div className="space-y-6">
                 {/* Site Type */}
@@ -197,6 +197,13 @@ export default function Calculator() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Call to Action - Hanging off bottom */}
+          <div className="absolute -bottom-6 left-0 right-0">
+            <Button className="w-full h-12 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-sm uppercase tracking-wide rounded-xl shadow-warm hover:shadow-lg transition-all duration-300">
+              SEND ME A PRICE BREAKDOWN
+            </Button>
+          </div>
         </div>
       </div>
     </div>
