@@ -8,6 +8,7 @@ import Calculator from "./pages/Calculator";
 import LoadingEstimate from "./pages/LoadingEstimate";
 import PriceEstimate from "./pages/PriceEstimate";
 import NotFound from "./pages/NotFound";
+import { Navigate } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
@@ -18,8 +19,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/" element={<Calculator />} />
+          <Route path="/assumptions" element={<Index />} />
+          <Route path="/calculator" element={<Navigate to="/" replace />} />
           <Route path="/loading" element={<LoadingEstimate />} />
           <Route path="/estimate" element={<PriceEstimate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

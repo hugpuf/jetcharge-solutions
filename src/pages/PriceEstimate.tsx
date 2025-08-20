@@ -63,7 +63,7 @@ export default function PriceEstimate() {
   const monthlyEquivalent = quoteData.estimate!.finalPrice / 12;
   
   const handleEditInputs = () => {
-    navigate('/calculator');
+    navigate('/');
   };
   
   const handlePrint = () => {
