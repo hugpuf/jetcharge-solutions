@@ -125,7 +125,7 @@ export default function Calculator() {
                           <span>Larger</span>
                         </div>
                       </div>
-                      <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center justify-between border border-warm-orange/20">
+                      <div className="bg-steel-600 text-warm-orange p-3 rounded-xl flex items-center gap-2 border border-warm-orange/20">
                         <div className="text-xs font-medium uppercase tracking-wide">
                           CABLE RUN
                         </div>
