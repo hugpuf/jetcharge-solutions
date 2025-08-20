@@ -83,9 +83,14 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
   const handleInputChange = (name: keyof ContactData, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+    // Clear error if field becomes valid
+    const error = validateField(name, value);
+    if (!error) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
   };
 
@@ -99,16 +104,11 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
   const isFormValid = (): boolean => {
     const requiredFields: (keyof ContactData)[] = ['first_name', 'last_name', 'phone', 'email'];
     
-    // Check if all fields are filled
-    const allFieldsFilled = requiredFields.every(field => formData[field].trim());
-    
-    // Check if there are no validation errors
-    const noErrors = Object.keys(errors).length === 0;
-    
-    // Validate all fields to ensure they pass validation
-    const allValid = requiredFields.every(field => !validateField(field, formData[field]));
-    
-    return allFieldsFilled && noErrors && allValid;
+    // Check if all fields are filled and pass validation
+    return requiredFields.every(field => {
+      const value = formData[field].trim();
+      return value && !validateField(field, value);
+    });
   };
 
   const handleSubmit = async () => {
