@@ -125,11 +125,11 @@ export default function Calculator() {
                           <span>Larger</span>
                         </div>
                       </div>
-                      <div className="bg-steel-600/50 text-chrome-white/80 p-2 rounded-lg flex items-center gap-3 border border-steel-600/20">
-                        <div className="text-xs font-medium uppercase tracking-wide">
-                          Cable Run
+                      <div className="bg-steel-600 text-warm-orange p-4 rounded-xl flex items-center justify-between border border-warm-orange/20">
+                        <div className="text-sm font-medium uppercase tracking-wide">
+                          CABLE RUN
                         </div>
-                        <div className="text-sm font-medium numeric-input">
+                        <div className="text-2xl font-medium numeric-input">
                           {adjustedDistance}m
                         </div>
                       </div>
