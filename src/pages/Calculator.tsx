@@ -50,20 +50,19 @@ export default function Calculator() {
   const { finalPrice } = calculateCost();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-steel-50 to-steel-100 p-6">
-      <div className="container mx-auto h-full flex gap-8">
-        {/* Left side - Empty for now */}
-        <div className="flex-1">
-          <div className="h-full flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-warm-sweep flex items-center justify-center p-4">
+      <div className="w-full max-w-7xl">
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 lg:gap-12 items-center">
+          {/* Preview Column */}
+          <div className="order-1 lg:order-1 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
             <div className="text-center text-steel-400">
               <h2 className="text-2xl font-medium mb-2">Character Preview</h2>
               <p className="text-sm">Your charging station visualization will appear here</p>
             </div>
           </div>
-        </div>
 
-        {/* Right side - Calculator Panel (35% width) */}
-        <div className="w-[35%] relative">
+          {/* Calculator Column */}
+          <div className="order-2 lg:order-2 relative w-full max-w-md lg:max-w-none mx-auto">
           <Card className="steel-panel elevation-plate h-full">
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
@@ -203,6 +202,7 @@ export default function Calculator() {
             <Button className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300">
               SEND ME A PRICE BREAKDOWN
             </Button>
+          </div>
           </div>
         </div>
       </div>
