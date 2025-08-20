@@ -17,7 +17,7 @@ const siteTypeOptions: { value: SiteType; label: string }[] = [
 ];
 
 // Slider: 5 discrete settings
-const FACTOR_VALUES = [0.5, 0.75, 1.0, 1.5, 2.0]; // Smallest, halfway, default, halfway, largest
+const FACTOR_VALUES = [0.75, 0.875, 1.0, 1.125, 1.25]; // -25%, -12.5%, default, +12.5%, +25%
 const DEFAULT_FACTOR_INDEX = 2; // Index for 1.0 (default)
 
 export default function Calculator() {
