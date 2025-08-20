@@ -63,7 +63,7 @@ const Index = () => {
         </div>
 
         {/* Form Card */}
-        <div className="steel-panel rounded-xl shadow-large p-8 space-y-8 border border-steel-600/30">
+        <div className="steel-panel rounded-xl p-8 space-y-8 border border-steel-600/30" style={{ boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)' }}>
           {/* Site Type Distances */}
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-chrome-white/90 uppercase tracking-wide">
