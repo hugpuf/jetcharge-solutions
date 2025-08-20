@@ -12,10 +12,10 @@ interface FormFieldProps {
 export function FormField({ label, value, onChange, prefix, step = "1" }: FormFieldProps) {
   return (
     <div className="flex items-center justify-between">
-      <Label className="text-sm text-steel-600 font-normal">{label}</Label>
+      <Label className="text-sm text-muted-foreground font-normal">{label}</Label>
       <div className="relative">
         {prefix && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-steel-400 pointer-events-none z-10">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground/70 pointer-events-none z-10">
             {prefix}
           </span>
         )}

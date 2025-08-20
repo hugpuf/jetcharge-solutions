@@ -63,10 +63,10 @@ const Index = () => {
         </div>
 
         {/* Form Card */}
-        <div className="bg-chrome-white rounded-xl shadow-large p-8 space-y-8">
+        <div className="steel-panel rounded-xl shadow-large p-8 space-y-8 border border-steel-600/30">
           {/* Site Type Distances */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-steel-500 uppercase tracking-wide">
+            <h3 className="text-sm font-medium text-chrome-white/90 uppercase tracking-wide">
               Site Type (m)
             </h3>
             <div className="space-y-3">
@@ -100,7 +100,7 @@ const Index = () => {
 
           {/* Cable Cost */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-steel-500 uppercase tracking-wide">
+            <h3 className="text-sm font-medium text-chrome-white/90 uppercase tracking-wide">
               Cable Cost ($/m)
             </h3>
             <div className="space-y-3">
@@ -121,7 +121,7 @@ const Index = () => {
 
           {/* Cable Carrier Cost */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-steel-500 uppercase tracking-wide">
+            <h3 className="text-sm font-medium text-chrome-white/90 uppercase tracking-wide">
               Cable Carrier Cost ($/m)
             </h3>
             <div className="space-y-3">
@@ -142,7 +142,7 @@ const Index = () => {
 
           {/* Charger Price */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-steel-500 uppercase tracking-wide">
+            <h3 className="text-sm font-medium text-chrome-white/90 uppercase tracking-wide">
               Charger Price ($)
             </h3>
             <div className="space-y-3">
@@ -163,7 +163,7 @@ const Index = () => {
 
           {/* Labour Markup */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-steel-500 uppercase tracking-wide">
+            <h3 className="text-sm font-medium text-chrome-white/90 uppercase tracking-wide">
               Labour Markup
             </h3>
             <div className="space-y-3">
@@ -181,7 +181,7 @@ const Index = () => {
             <Button
               onClick={handleReset}
               variant="outline"
-              className="flex-1 rounded-lg border-steel-200 text-steel-500 hover:bg-steel-50 hover:text-steel-600 transition-colors"
+              className="flex-1 rounded-lg border-steel-600 text-chrome-white hover:bg-steel-700 hover:text-chrome-white transition-colors"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               Reset
