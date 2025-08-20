@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Minus, Plus } from "lucide-react";
 import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
+import ContactModal from "@/components/ContactModal";
 
 const siteTypeOptions: { value: SiteType; label: string }[] = [
   { value: 'Car Dealership', label: 'Car Dealership' },
@@ -26,6 +27,7 @@ export default function Calculator() {
   const [dcCount, setDcCount] = useState(0);
   const [isUnderground, setIsUnderground] = useState(false);
   const [runFactorIndex, setRunFactorIndex] = useState(DEFAULT_FACTOR_INDEX);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const runFactor = FACTOR_VALUES[runFactorIndex];
 
@@ -247,13 +249,30 @@ export default function Calculator() {
 
             {/* Call to Action - Floating separate from steel panel */}
             <div className="absolute -bottom-20 left-0 right-0">
-              <Button className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300">
+              <Button 
+                onClick={() => setIsContactModalOpen(true)}
+                className="floating-cta w-full h-16 bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white font-medium text-base uppercase tracking-wide rounded-xl hover:shadow-lg transition-all duration-300"
+              >
                 SEND ME A PRICE BREAKDOWN
               </Button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal
+        open={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        calculatorState={{
+          siteType,
+          acCount,
+          dcCount,
+          isUnderground,
+          runFactor
+        }}
+        estimate={estimate}
+      />
     </div>
   );
 }
