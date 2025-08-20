@@ -9,7 +9,6 @@ import { Minus, Plus } from "lucide-react";
 import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
 import ContactModal from "@/components/ContactModal";
-import { CarDealershipPreview } from "@/components/CarDealershipPreview";
 
 const siteTypeOptions: { value: SiteType; label: string }[] = [
   { value: 'Car Dealership', label: 'Car Dealership' },
@@ -132,14 +131,10 @@ export default function Calculator() {
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 lg:gap-12 items-center">
           {/* Preview Column */}
           <div className="order-1 lg:order-1 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
-            {siteType === 'Car Dealership' ? (
-              <CarDealershipPreview isActive={true} className="w-full h-full" />
-            ) : (
-              <div className="text-center text-steel-400">
-                <h2 className="text-2xl font-medium mb-2">Character Preview</h2>
-                <p className="text-sm">Your charging station visualization will appear here</p>
-              </div>
-            )}
+            <div className="text-center text-steel-400">
+              <h2 className="text-2xl font-medium mb-2">Character Preview</h2>
+              <p className="text-sm">Your charging station visualization will appear here</p>
+            </div>
           </div>
 
           {/* Calculator Column */}
