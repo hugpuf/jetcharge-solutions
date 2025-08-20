@@ -11,7 +11,7 @@ import { SiteType, assumptionsStore } from "@/lib/assumptions";
 import { computeEstimate, fmtMoney } from "@/lib/estimate";
 import { serializeQuoteData } from "@/lib/quote";
 import ContactModal from "@/components/ContactModal";
-import chargingStationLineArt from "@/assets/charging-station-line-art.webp";
+// Using uploaded image directly
 
 const siteTypeOptions: { value: SiteType; label: string }[] = [
   { value: 'Car Dealership', label: 'Car Dealership' },
@@ -135,12 +135,16 @@ export default function Calculator() {
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 lg:gap-12 items-center">
           {/* Preview Column */}
           <div className="order-1 lg:order-1 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
-            <div className="w-full max-w-lg">
-              <img 
-                src={chargingStationLineArt} 
-                alt="Single line drawing of an EV charging station"
-                className="w-full h-auto object-contain animate-fade-in animate-[float_3s_ease-in-out_infinite]"
-              />
+            <div className="w-full max-w-lg relative">
+              <div className="relative animate-float">
+                <img 
+                  src="/lovable-uploads/69500f5e-03a6-41eb-9066-0a984ce128cb.png" 
+                  alt="Isometric line drawing of EV charging station with buildings"
+                  className="w-full h-auto object-contain animate-fade-in relative z-10"
+                />
+                {/* Orange glow underneath */}
+                <div className="absolute inset-x-0 bottom-0 h-8 bg-warm-orange/30 blur-xl rounded-full transform translate-y-4 scale-75"></div>
+              </div>
             </div>
           </div>
 
