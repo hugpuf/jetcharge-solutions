@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { defaultAssumptions } from "@/types/assumptions";
+import { Minus, Plus } from "lucide-react";
 
 type SiteType = 'carDealership' | 'publicStation' | 'officeBuilding' | 'apartment' | 'house';
 
@@ -42,19 +42,19 @@ export default function Calculator() {
     const baseCost = acCost + dcCost + acCableCost + dcCableCost + carrierCost;
     const finalPrice = baseCost * (1 + assumptions.labourMarkup / 100);
     
-    return { baseCost: Math.round(baseCost), finalPrice: Math.round(finalPrice) };
+    return { finalPrice: Math.round(finalPrice) };
   };
 
-  const { baseCost, finalPrice } = calculateCost();
+  const { finalPrice } = calculateCost();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-steel-50 to-steel-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-[#EDECE7] to-white p-6">
       <div className="container mx-auto h-full flex gap-8">
         {/* Left side - Empty for now */}
         <div className="flex-1">
           <div className="h-full flex items-center justify-center">
-            <div className="text-center text-steel-400">
-              <h2 className="text-2xl font-medium mb-2">Character Preview</h2>
+            <div className="text-center text-[#26252A]/60">
+              <h2 className="text-xl font-medium mb-2">Station Preview</h2>
               <p className="text-sm">Your charging station visualization will appear here</p>
             </div>
           </div>
@@ -62,120 +62,134 @@ export default function Calculator() {
 
         {/* Right side - Calculator Panel (35% width) */}
         <div className="w-[35%]">
-          <Card className="steel-panel elevation-plate warm-glow h-full">
-            <CardHeader className="pb-6">
-              <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
-                CREATE YOUR CHARGING STATION
+          <Card className="bg-[#26252A] rounded-[2px] shadow-[0_8px_24px_rgba(38,37,42,0.18),0_1px_3px_rgba(38,37,42,0.12)] h-full border-0">
+            <CardHeader className="text-center space-y-2 pb-6">
+              <CardTitle className="text-lg font-semibold tracking-tight text-white">
+                Create Your Charging Station
               </CardTitle>
-              <p className="text-sm text-chrome-white/80">
+              <p className="text-sm text-white/70">
                 Configure your EV charging infrastructure
               </p>
             </CardHeader>
             
-            <CardContent className="space-y-8">
-              {/* Site Type */}
-              <div className="space-y-3">
-                <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
-                  Site Type
-                </Label>
-                <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
-                  <SelectTrigger className="input-pill h-11">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {siteTypeOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* AC Chargers */}
-              <div className="space-y-3">
-                <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
-                  AC Chargers
-                </Label>
-                <Input
-                  type="number"
-                  min="0"
-                  value={acChargers}
-                  onChange={(e) => setAcChargers(Number(e.target.value) || 0)}
-                  className="input-pill numeric-input h-11"
-                  placeholder="0"
-                />
-              </div>
-
-              {/* DC Chargers */}
-              <div className="space-y-3">
-                <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
-                  DC Fast Chargers
-                </Label>
-                <Input
-                  type="number"
-                  min="0"
-                  value={dcChargers}
-                  onChange={(e) => setDcChargers(Number(e.target.value) || 0)}
-                  className="input-pill numeric-input h-11"
-                  placeholder="0"
-                />
-              </div>
-
-              {/* Underground Cable */}
-              <div className="space-y-3">
-                <Label className="text-sm uppercase tracking-wide text-chrome-white/90">
-                  Installation Type
-                </Label>
-                <div className="flex items-center space-x-3 bg-steel-600/20 rounded-xl p-4">
-                  <Checkbox
-                    id="underground"
-                    checked={underground}
-                    onCheckedChange={(checked) => setUnderground(checked as boolean)}
-                  />
-                  <Label htmlFor="underground" className="text-chrome-white cursor-pointer">
-                    Run cable underground
+            <CardContent className="space-y-6">
+              {/* Configuration Group */}
+              <div className="space-y-4">
+                {/* Site Type */}
+                <div className="space-y-3">
+                  <Label className="text-sm text-white/90 block">
+                    Site type
                   </Label>
+                  <Select value={siteType} onValueChange={(value: SiteType) => setSiteType(value)}>
+                    <SelectTrigger className="w-full h-10 rounded-[2px] border-[#26252A]/20 bg-white text-[#26252A] min-w-[200px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-[2px]">
+                      {siteTypeOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* AC Chargers */}
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm text-white/90">
+                    AC chargers
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      onClick={() => setAcChargers(Math.max(0, acChargers - 1))}
+                      disabled={acChargers === 0}
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="text-white font-medium w-8 text-center">{acChargers}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      onClick={() => setAcChargers(acChargers + 1)}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* DC Fast Chargers */}
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm text-white/90">
+                    DC fast chargers
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      onClick={() => setDcChargers(Math.max(0, dcChargers - 1))}
+                      disabled={dcChargers === 0}
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="text-white font-medium w-8 text-center">{dcChargers}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 rounded-[2px] border-white/20 bg-transparent text-white hover:bg-white/10"
+                      onClick={() => setDcChargers(dcChargers + 1)}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Installation Type */}
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm text-white/90">
+                    Installation type
+                  </Label>
+                  <div className="flex rounded-[2px] border border-white/20 bg-transparent">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={`h-8 px-3 rounded-[2px] text-xs font-medium ${
+                        !underground 
+                          ? 'bg-white text-[#26252A]' 
+                          : 'text-white hover:bg-white/10'
+                      }`}
+                      onClick={() => setUnderground(false)}
+                    >
+                      Surface run
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={`h-8 px-3 rounded-[2px] text-xs font-medium ${
+                        underground 
+                          ? 'bg-white text-[#26252A]' 
+                          : 'text-white hover:bg-white/10'
+                      }`}
+                      onClick={() => setUnderground(true)}
+                    >
+                      Underground
+                    </Button>
+                  </div>
                 </div>
               </div>
 
-              {/* Cost Display */}
-              <div className="space-y-4 pt-6 border-t border-steel-600/30">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm uppercase tracking-wide text-chrome-white/70">
-                    Base Cost
-                  </span>
-                  <span className="text-lg font-medium text-chrome-white numeric-input">
-                    ${baseCost.toLocaleString()}
-                  </span>
-                </div>
-                
-                <div className="flex justify-between items-center p-4 bg-warm-orange/10 rounded-xl border border-warm-orange/20">
-                  <span className="text-sm uppercase tracking-wide text-warm-orange font-medium">
+              {/* Estimate Group */}
+              <div className="pt-6 border-t border-white/10">
+                <div className="bg-[#F5841A] text-white p-4 rounded-[2px] text-center">
+                  <div className="text-sm font-medium uppercase tracking-wide mb-1">
                     Final Price
-                  </span>
-                  <span className="text-2xl font-medium text-warm-orange numeric-input">
+                  </div>
+                  <div className="text-2xl font-bold">
                     ${finalPrice.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-
-              {/* Stats Summary */}
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="text-center p-3 bg-steel-600/20 rounded-lg">
-                  <div className="text-2xl font-medium text-chrome-white numeric-input">
-                    {acChargers + dcChargers}
-                  </div>
-                  <div className="text-xs uppercase tracking-wide text-chrome-white/70">
-                    Total Chargers
-                  </div>
-                </div>
-                <div className="text-center p-3 bg-steel-600/20 rounded-lg">
-                  <div className="text-2xl font-medium text-chrome-white numeric-input">
-                    {defaultAssumptions.siteDistances[siteType]}m
-                  </div>
-                  <div className="text-xs uppercase tracking-wide text-chrome-white/70">
-                    Cable Distance
                   </div>
                 </div>
               </div>
