@@ -64,7 +64,7 @@ export default function Calculator() {
 
         {/* Right side - Calculator Panel (35% width) */}
         <div className="w-[35%]">
-          <Card className="steel-panel elevation-plate warm-glow h-full">
+          <Card className="steel-panel elevation-plate h-full">
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
                 CREATE YOUR CHARGING STATION
