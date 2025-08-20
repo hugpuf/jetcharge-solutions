@@ -201,28 +201,15 @@ All colors MUST be HSL.
 
   /* Elevation utility for modern floating effect */
   .elevation-plate {
+    /* Persistent floating effect (no hover needed) */
     box-shadow: 
-      /* Main drop shadow for depth */
-      0 20px 25px -5px hsl(var(--steel-900) / 0.25),
-      0 10px 10px -5px hsl(var(--steel-900) / 0.15),
-      /* Subtle warm glow for premium feel */
-      0 0 40px hsl(var(--warm-orange) / 0.05),
-      /* Inner highlight for dimensionality */
-      inset 0 1px 0 hsl(var(--steel-600) / 0.3);
+      0 25px 50px -12px hsl(var(--steel-900) / 0.35),
+      0 20px 25px -5px hsl(var(--steel-900) / 0.2),
+      0 0 60px hsl(var(--warm-orange) / 0.08),
+      inset 0 1px 0 hsl(var(--steel-600) / 0.4);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .elevation-plate:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      /* Enhanced drop shadow on hover */
-      0 25px 50px -12px hsl(var(--steel-900) / 0.35),
-      0 20px 25px -5px hsl(var(--steel-900) / 0.2),
-      /* Stronger warm glow on hover */
-      0 0 60px hsl(var(--warm-orange) / 0.08),
-      /* Inner highlight */
-      inset 0 1px 0 hsl(var(--steel-600) / 0.4);
-  }
 
   /* Carbon Steel Panel */
   .steel-panel {
