@@ -204,7 +204,7 @@ export default function Calculator() {
                           </div>
                           <div className="text-sm font-medium numeric-input">
                             {isEditingCableRun ? (
-                              <Input
+                              <input
                                 type="number"
                                 value={cableRunOverride ?? estimate.effectiveRunM}
                                 onChange={(e) => handleCableRunInput(e.target.value)}
@@ -213,7 +213,7 @@ export default function Calculator() {
                                   if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur();
                                   if (e.key === 'Escape') { setCableRunOverride(null); setIsEditingCableRun(false); }
                                 }}
-                                className="input-pill numeric-input w-20 h-8 text-xs"
+                                className="bg-transparent border-none outline-none text-warm-orange text-sm font-medium numeric-input w-12 text-right"
                                 min={0}
                                 autoFocus
                               />
@@ -225,9 +225,10 @@ export default function Calculator() {
                                 onClick={() => setIsEditingCableRun(true)}
                                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsEditingCableRun(true); }}
                               >
-                                {estimate.effectiveRunM}m
+                                {estimate.effectiveRunM}
                               </span>
                             )}
+                            m
                           </div>
                         </div>
                       </div>
