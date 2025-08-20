@@ -50,7 +50,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-steel-50 via-chrome-white to-warm-orange/5 p-6 flex items-center justify-center">
+    <div className="min-h-screen p-6 flex items-center justify-center" style={{ background: 'var(--gradient-warm-sweep)' }}>
       <div className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center">
