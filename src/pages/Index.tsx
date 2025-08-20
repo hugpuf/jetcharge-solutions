@@ -3,37 +3,94 @@ import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/FormField";
 import { Save, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { AssumptionData, defaultAssumptions } from "@/types/assumptions";
+import { Assumptions, DEFAULT_ASSUMPTIONS, assumptionsStore } from "@/lib/assumptions";
 
 const Index = () => {
-  const [assumptions, setAssumptions] = useState<AssumptionData>(defaultAssumptions);
+  const [assumptions, setAssumptions] = useState<Assumptions>(DEFAULT_ASSUMPTIONS);
   const { toast } = useToast();
 
-  // Load saved assumptions on mount
+  // Load assumptions from store on mount and migrate legacy data
   useEffect(() => {
-    const saved = localStorage.getItem('jetcharge-assumptions');
-    if (saved) {
+    // Load current assumptions from store
+    setAssumptions(assumptionsStore.getAssumptions());
+    
+    // One-time migration from legacy localStorage key
+    const legacySaved = localStorage.getItem('jetcharge-assumptions');
+    if (legacySaved) {
       try {
-        setAssumptions(JSON.parse(saved));
+        const legacyData = JSON.parse(legacySaved);
+        // Map legacy structure to new structure
+        const migrated: Partial<Assumptions> = {
+          siteTypeMeters: {
+            'Car Dealership': legacyData.siteDistances?.carDealership ?? DEFAULT_ASSUMPTIONS.siteTypeMeters['Car Dealership'],
+            'Public Station': legacyData.siteDistances?.publicStation ?? DEFAULT_ASSUMPTIONS.siteTypeMeters['Public Station'],
+            'Office Building': legacyData.siteDistances?.officeBuilding ?? DEFAULT_ASSUMPTIONS.siteTypeMeters['Office Building'],
+            'Apartment': legacyData.siteDistances?.apartment ?? DEFAULT_ASSUMPTIONS.siteTypeMeters['Apartment'],
+            'House': legacyData.siteDistances?.house ?? DEFAULT_ASSUMPTIONS.siteTypeMeters['House'],
+          },
+          cableCostPerM: {
+            ac: legacyData.cableCosts?.ac ?? DEFAULT_ASSUMPTIONS.cableCostPerM.ac,
+            dc: legacyData.cableCosts?.dc ?? DEFAULT_ASSUMPTIONS.cableCostPerM.dc,
+          },
+          carrierPerM: {
+            tray: legacyData.carrierCosts?.tray ?? DEFAULT_ASSUMPTIONS.carrierPerM.tray,
+            trench: legacyData.carrierCosts?.trench ?? DEFAULT_ASSUMPTIONS.carrierPerM.trench,
+          },
+          chargerPrice: {
+            ac: legacyData.chargerPrices?.ac ?? DEFAULT_ASSUMPTIONS.chargerPrice.ac,
+            dc: legacyData.chargerPrices?.dc ?? DEFAULT_ASSUMPTIONS.chargerPrice.dc,
+          },
+          labourMarkupPct: legacyData.labourMarkup ?? DEFAULT_ASSUMPTIONS.labourMarkupPct,
+        };
+        
+        // Merge into store and update local state
+        assumptionsStore.setAssumptions(migrated);
+        setAssumptions(assumptionsStore.getAssumptions());
+        
+        // Remove legacy key
+        localStorage.removeItem('jetcharge-assumptions');
       } catch (error) {
-        console.error('Failed to load saved assumptions:', error);
+        console.error('Failed to migrate legacy assumptions:', error);
       }
     }
   }, []);
 
-  const updateAssumption = (section: keyof AssumptionData, key: string, value: number) => {
-    setAssumptions(prev => ({
-      ...prev,
-      [section]: { ...(prev[section] as any), [key]: value }
-    }));
+  const updateSiteType = (siteType: keyof Assumptions['siteTypeMeters'], value: number) => {
+    const updated = { ...assumptions };
+    updated.siteTypeMeters[siteType] = value;
+    setAssumptions(updated);
+    assumptionsStore.setAssumptions({ siteTypeMeters: updated.siteTypeMeters });
+  };
+
+  const updateCableCost = (type: 'ac' | 'dc', value: number) => {
+    const updated = { ...assumptions };
+    updated.cableCostPerM[type] = value;
+    setAssumptions(updated);
+    assumptionsStore.setAssumptions({ cableCostPerM: updated.cableCostPerM });
+  };
+
+  const updateCarrierCost = (type: 'tray' | 'trench', value: number) => {
+    const updated = { ...assumptions };
+    updated.carrierPerM[type] = value;
+    setAssumptions(updated);
+    assumptionsStore.setAssumptions({ carrierPerM: updated.carrierPerM });
+  };
+
+  const updateChargerPrice = (type: 'ac' | 'dc', value: number) => {
+    const updated = { ...assumptions };
+    updated.chargerPrice[type] = value;
+    setAssumptions(updated);
+    assumptionsStore.setAssumptions({ chargerPrice: updated.chargerPrice });
   };
 
   const updateLabourMarkup = (value: number) => {
-    setAssumptions(prev => ({ ...prev, labourMarkup: value }));
+    const updated = { ...assumptions, labourMarkupPct: value };
+    setAssumptions(updated);
+    assumptionsStore.setAssumptions({ labourMarkupPct: value });
   };
 
   const handleSave = () => {
-    localStorage.setItem('jetcharge-assumptions', JSON.stringify(assumptions));
+    assumptionsStore.setAssumptions(assumptions);
     toast({ 
       title: "Settings Saved", 
       description: "Your assumptions have been saved successfully." 
@@ -41,8 +98,8 @@ const Index = () => {
   };
 
   const handleReset = () => {
-    setAssumptions(defaultAssumptions);
-    localStorage.removeItem('jetcharge-assumptions');
+    assumptionsStore.resetToDefaults();
+    setAssumptions(assumptionsStore.getAssumptions());
     toast({ 
       title: "Settings Reset", 
       description: "All assumptions have been reset to default values." 
@@ -72,28 +129,28 @@ const Index = () => {
             <div className="space-y-3">
               <FormField
                 label="Car Dealership"
-                value={assumptions.siteDistances.carDealership}
-                onChange={(value) => updateAssumption('siteDistances', 'carDealership', value)}
+                value={assumptions.siteTypeMeters['Car Dealership']}
+                onChange={(value) => updateSiteType('Car Dealership', value)}
               />
               <FormField
                 label="Public Station"
-                value={assumptions.siteDistances.publicStation}
-                onChange={(value) => updateAssumption('siteDistances', 'publicStation', value)}
+                value={assumptions.siteTypeMeters['Public Station']}
+                onChange={(value) => updateSiteType('Public Station', value)}
               />
               <FormField
                 label="Office Building"
-                value={assumptions.siteDistances.officeBuilding}
-                onChange={(value) => updateAssumption('siteDistances', 'officeBuilding', value)}
+                value={assumptions.siteTypeMeters['Office Building']}
+                onChange={(value) => updateSiteType('Office Building', value)}
               />
               <FormField
                 label="Apartment"
-                value={assumptions.siteDistances.apartment}
-                onChange={(value) => updateAssumption('siteDistances', 'apartment', value)}
+                value={assumptions.siteTypeMeters['Apartment']}
+                onChange={(value) => updateSiteType('Apartment', value)}
               />
               <FormField
                 label="House"
-                value={assumptions.siteDistances.house}
-                onChange={(value) => updateAssumption('siteDistances', 'house', value)}
+                value={assumptions.siteTypeMeters['House']}
+                onChange={(value) => updateSiteType('House', value)}
               />
             </div>
           </div>
@@ -106,14 +163,14 @@ const Index = () => {
             <div className="space-y-3">
               <FormField
                 label="AC"
-                value={assumptions.cableCosts.ac}
-                onChange={(value) => updateAssumption('cableCosts', 'ac', value)}
+                value={assumptions.cableCostPerM.ac}
+                onChange={(value) => updateCableCost('ac', value)}
                 prefix="$"
               />
               <FormField
                 label="DC"
-                value={assumptions.cableCosts.dc}
-                onChange={(value) => updateAssumption('cableCosts', 'dc', value)}
+                value={assumptions.cableCostPerM.dc}
+                onChange={(value) => updateCableCost('dc', value)}
                 prefix="$"
               />
             </div>
@@ -127,14 +184,14 @@ const Index = () => {
             <div className="space-y-3">
               <FormField
                 label="Tray"
-                value={assumptions.carrierCosts.tray}
-                onChange={(value) => updateAssumption('carrierCosts', 'tray', value)}
+                value={assumptions.carrierPerM.tray}
+                onChange={(value) => updateCarrierCost('tray', value)}
                 prefix="$"
               />
               <FormField
                 label="Trench"
-                value={assumptions.carrierCosts.trench}
-                onChange={(value) => updateAssumption('carrierCosts', 'trench', value)}
+                value={assumptions.carrierPerM.trench}
+                onChange={(value) => updateCarrierCost('trench', value)}
                 prefix="$"
               />
             </div>
@@ -148,14 +205,14 @@ const Index = () => {
             <div className="space-y-3">
               <FormField
                 label="AC"
-                value={assumptions.chargerPrices.ac}
-                onChange={(value) => updateAssumption('chargerPrices', 'ac', value)}
+                value={assumptions.chargerPrice.ac}
+                onChange={(value) => updateChargerPrice('ac', value)}
                 prefix="$"
               />
               <FormField
                 label="DC"
-                value={assumptions.chargerPrices.dc}
-                onChange={(value) => updateAssumption('chargerPrices', 'dc', value)}
+                value={assumptions.chargerPrice.dc}
+                onChange={(value) => updateChargerPrice('dc', value)}
                 prefix="$"
               />
             </div>
@@ -169,7 +226,7 @@ const Index = () => {
             <div className="space-y-3">
               <FormField
                 label="Markup (%)"
-                value={assumptions.labourMarkup}
+                value={assumptions.labourMarkupPct}
                 onChange={updateLabourMarkup}
                 step="0.01"
               />
@@ -182,6 +239,7 @@ const Index = () => {
               onClick={handleReset}
               variant="outline"
               className="flex-1 rounded-lg border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange transition-colors"
+              data-testid="assumptions-reset"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               Reset
@@ -189,6 +247,7 @@ const Index = () => {
             <Button
               onClick={handleSave}
               className="flex-1 rounded-lg bg-gradient-to-r from-warm-orange to-warm-amber text-chrome-white shadow-warm hover:shadow-large transition-all duration-200"
+              data-testid="assumptions-save"
             >
               <Save className="h-4 w-4 mr-2" />
               Save
