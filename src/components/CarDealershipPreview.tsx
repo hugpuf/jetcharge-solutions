@@ -58,7 +58,7 @@ export function CarDealershipPreview({ isActive = true, className = "" }: CarDea
       
       {/* Orange shadow underneath */}
       <div 
-        className="orange-shadow absolute bottom-4 w-3/4 h-4 rounded-full blur-md"
+        className="orange-shadow absolute bottom-2 w-2/3 h-3 rounded-full blur-md"
         style={{
           background: 'hsl(var(--warm-orange))',
           opacity: shadowOpacity,
@@ -69,7 +69,7 @@ export function CarDealershipPreview({ isActive = true, className = "" }: CarDea
       <img
         src="/lovable-uploads/8d33438e-4bae-4205-8d3d-d7dfc1da0556.png"
         alt="Car Dealership with EV Charging Station"
-        className={`floating-dealership w-full h-full max-w-md max-h-md object-contain ${isVisible ? 'animate-fade-in' : ''}`}
+        className={`floating-dealership w-auto h-auto max-w-full max-h-full object-contain ${isVisible ? 'animate-fade-in' : ''}`}
         style={{
           filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))',
         }}
