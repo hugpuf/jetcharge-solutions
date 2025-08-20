@@ -202,11 +202,11 @@ All colors MUST be HSL.
   /* Elevation utility for modern floating effect */
   .elevation-plate {
     /* Persistent floating effect (no hover needed) */
-    box-shadow: 
+    box-shadow:
       0 25px 50px -12px hsl(var(--steel-900) / 0.35),
       0 20px 25px -5px hsl(var(--steel-900) / 0.2),
-      0 0 60px hsl(var(--warm-orange) / 0.08),
-      inset 0 1px 0 hsl(var(--steel-600) / 0.4);
+      0 0 60px hsl(var(--warm-orange) / 0.12),
+      inset 0 1px 0 hsl(var(--steel-600) / 0.4) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
