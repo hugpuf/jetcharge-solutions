@@ -57,13 +57,11 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
   }, []);
 
   const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return email.includes('@');
   };
 
-  const validatePhone = (phone: string): boolean => {
-    const digits = phone.replace(/\D/g, '');
-    return digits.length >= 7 && digits.length <= 20;
+  const validateMobile = (mobile: string): boolean => {
+    return mobile.includes('+61') && mobile.replace(/\D/g, '').length > 2;
   };
 
   const validateField = (name: keyof ContactData, value: string): string | null => {
@@ -72,11 +70,11 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
     }
 
     if (name === "email" && !validateEmail(value)) {
-      return "Please enter a valid email address";
+      return "Please include @ in your email address";
     }
 
-    if (name === "phone" && !validatePhone(value)) {
-      return "Please enter a valid phone number (7-20 digits)";
+    if (name === "phone" && !validateMobile(value)) {
+      return "Please include +61 followed by your mobile number";
     }
 
     return null;
@@ -245,7 +243,7 @@ export default function ContactModal({ open, onClose, calculatorState, estimate 
           {/* Phone */}
           <div className="space-y-2">
             <Label htmlFor="phone" className="text-sm font-medium text-steel-600">
-              Phone Number *
+              Mobile Number *
             </Label>
             <Input
               id="phone"
