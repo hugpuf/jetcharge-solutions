@@ -131,10 +131,10 @@ All colors MUST be HSL.
 @layer utilities {
   /* Pill-shaped input styling - using utilities to override shadcn defaults */
   .input-pill {
-    height: 32px !important;
-    border-radius: 16px !important;
-    width: 96px !important;
-    padding: 0 16px !important;
+    height: 28px !important;
+    border-radius: 14px !important;
+    width: 120px !important;
+    padding: 0 18px !important;
     background: hsl(var(--chrome-white)) !important;
     border: 1px solid hsl(var(--steel-200)) !important;
     box-shadow: 
@@ -160,9 +160,9 @@ All colors MUST be HSL.
   /* Numeric input typography */
   .numeric-input {
     font-variant-numeric: tabular-nums !important;
-    letter-spacing: -0.03em !important;
+    letter-spacing: 0.08em !important;
     font-weight: 500 !important;
-    text-align: center !important;
+    text-align: right !important;
   }
 
   .numeric-input::-webkit-outer-spin-button,
