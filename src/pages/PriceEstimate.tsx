@@ -63,9 +63,9 @@ export default function PriceEstimate() {
   const handleContactSales = () => {
     setIsContactModalOpen(true);
   };
-  return <>
-      <main className="min-h-screen bg-gradient-warm-sweep flex items-center justify-center p-6 print:bg-white print:p-0">
-        <section aria-label="Price Estimate" className="relative w-[794px] max-w-full aspect-[210/297] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none overflow-hidden print:overflow-visible">
+    return <>
+      <main className="min-h-screen bg-gradient-warm-sweep flex items-start justify-center p-6 print:bg-white print:p-0">
+        <section aria-label="Price Estimate" className="relative w-[794px] max-w-full min-h-[1123px] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none print:overflow-visible">
           {/* Neon edge glow - hidden in print */}
           <div className="pointer-events-none absolute inset-0 rounded-xl shadow-warm print:hidden" />
           
