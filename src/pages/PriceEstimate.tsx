@@ -71,11 +71,7 @@ export default function PriceEstimate() {
           
           {/* Header */}
           <header className="flex items-start justify-between p-6 border-b border-steel-200">
-            <img 
-              src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png"
-              alt="Jet Charge Logo"
-              className="h-8 w-auto"
-            />
+            <img src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png" alt="Jet Charge Logo" className="h-8 w-auto" />
             <div className="text-sm leading-5 text-steel-400 text-right">
               <div><span className="font-semibold text-steel-600">ESTIMATE #</span> {quoteNumber}</div>
               <div>Date: {dateGenerated}</div>
@@ -90,7 +86,7 @@ export default function PriceEstimate() {
               <h3 className="text-sm uppercase tracking-wider text-steel-600 font-medium whitespace-nowrap pt-4">
                 Site Details
               </h3>
-              <div className="w-2/3 border border-steel-200 rounded-lg p-6 bg-steel-50">
+              <div className="flex-1 border border-steel-200 rounded-lg p-6 bg-steel-50">
                 <div className="grid grid-cols-2 gap-8 text-sm">
                   {/* Column 1 */}
                   <div className="space-y-4">
@@ -174,9 +170,7 @@ export default function PriceEstimate() {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h4 className="font-medium text-steel-600 mb-2">Cable Carrier (Conduit/Tray)</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Cost of the physical carrier for the cable run — either conduit or tray depending on installation type. This ensures cabling is safely supported and compliant, priced per metre.
-                    </p>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">Costs of the physical carrier for the cables, as either tray or underground trenching depending on installation type. This ensures cabling is safely supported and compliant, priced per metre.</p>
                   </div>
                   <div className="font-mono font-semibold text-steel-600 ml-4">
                     {fmtMoney(carrierCost)}
