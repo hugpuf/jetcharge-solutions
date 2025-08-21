@@ -84,54 +84,56 @@ export default function PriceEstimate() {
             </div>
           </header>
           
-          {/* Hero Summary */}
+          {/* Site Details and Summary */}
           <div className="grid grid-cols-2 gap-6 p-6">
-            <div className="border border-steel-200 rounded-lg p-4">
-              <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                Estimated Total Cost
-              </div>
-              <div className="text-2xl font-mono font-semibold text-steel-600">
-                {fmtMoney(quoteData.estimate!.finalPrice)}
-              </div>
-              <div className="text-xs mt-2 text-steel-400">
-                ≈ {fmtMoney(monthlyEquivalent)}/mo
+            {/* Site Details - Left Side */}
+            <div>
+              <h3 className="text-sm uppercase tracking-wider mb-3 text-steel-600 font-medium">
+                Site Details
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div>
+                  <span className="font-medium text-steel-600">Type:</span>{' '}
+                  <span className="text-steel-500">{quoteData.siteType}</span>
+                </div>
+                <div>
+                  <span className="font-medium text-steel-600">Install:</span>{' '}
+                  <span className="text-steel-500">{quoteData.isUnderground ? 'Underground' : 'Surface'}</span>
+                </div>
+                <div>
+                  <span className="font-medium text-steel-600">AC Chargers:</span>{' '}
+                  <span className="text-steel-500">{quoteData.acCount || 0}</span>
+                </div>
+                <div>
+                  <span className="font-medium text-steel-600">DC Chargers:</span>{' '}
+                  <span className="text-steel-500">{quoteData.dcCount || 0}</span>
+                </div>
+                <div>
+                  <span className="font-medium text-steel-600">Estimated Cable Run:</span>{' '}
+                  <span className="text-steel-500">{quoteData.effectiveRunM || 0} m</span>
+                </div>
+                <div>
+                  <span className="font-medium text-steel-600">Civil works:</span>{' '}
+                  <span className="text-steel-500">{quoteData.isUnderground ? 'Yes' : 'No'}</span>
+                </div>
               </div>
             </div>
-            
+
+            {/* Estimated Total Cost - Right Side */}
+            <div className="flex justify-end">
+              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
+                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
+                  Estimated Total Cost
+                </div>
+                <div className="text-2xl font-mono font-semibold text-steel-600">
+                  {fmtMoney(quoteData.estimate!.finalPrice)}
+                </div>
+                <div className="text-xs mt-2 text-steel-400">
+                  ≈ {fmtMoney(monthlyEquivalent)}/mo
+                </div>
+              </div>
+            </div>
           </div>
-          
-          {/* Site Details */}
-          <section className="px-6 mb-6">
-            <h3 className="text-sm uppercase tracking-wider mb-3 text-steel-600 font-medium">
-              Site Details
-            </h3>
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <div>
-                <span className="font-medium text-steel-600">Type:</span>{' '}
-                <span className="text-steel-500">{quoteData.siteType}</span>
-              </div>
-              <div>
-                <span className="font-medium text-steel-600">Install:</span>{' '}
-                <span className="text-steel-500">{quoteData.isUnderground ? 'Underground' : 'Surface'}</span>
-              </div>
-              <div>
-                <span className="font-medium text-steel-600">Address:</span>{' '}
-                <span className="text-steel-500">{quoteData.address || '—'}</span>
-              </div>
-              <div>
-                <span className="font-medium text-steel-600">AC/DC:</span>{' '}
-                <span className="text-steel-500">{quoteData.acCount || 0} / {quoteData.dcCount || 0}</span>
-              </div>
-              <div>
-                <span className="font-medium text-steel-600">Cable run:</span>{' '}
-                <span className="text-steel-500">{quoteData.effectiveRunM || 0} m</span>
-              </div>
-              <div>
-                <span className="font-medium text-steel-600">Civil works:</span>{' '}
-                <span className="text-steel-500">{quoteData.isUnderground ? 'Yes' : 'No'}</span>
-              </div>
-            </div>
-          </section>
           
           {/* Cost Breakdown Sections */}
           <section className="px-6 mb-6">
@@ -142,12 +144,16 @@ export default function PriceEstimate() {
             <div className="space-y-6">
               {/* Charger Hardware */}
               <div className="border-l-4 border-warm-orange pl-4">
-                <h4 className="font-medium text-steel-600 mb-2">Charger Hardware</h4>
-                <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                  Cost of AC and DC charging units, calculated as quantity multiplied by unit price, including markup. This represents the hardware itself, not installation.
-                </p>
-                <div className="font-mono font-semibold text-steel-600">
-                  Estimate: {fmtMoney(chargerHardwareCost)}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Charger Hardware</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Cost of AC and DC charging units, calculated as quantity multiplied by unit price. This represents the hardware itself, not installation.
+                    </p>
+                  </div>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(chargerHardwareCost)}
+                  </div>
                 </div>
               </div>
 
@@ -155,12 +161,16 @@ export default function PriceEstimate() {
 
               {/* Cable Installation */}
               <div className="border-l-4 border-warm-orange pl-4">
-                <h4 className="font-medium text-steel-600 mb-2">Cable Installation</h4>
-                <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                  Cost of cabling based on the cable run length and the type of chargers being installed. This accounts for copper sizing requirements and is priced per meter, with markup included.
-                </p>
-                <div className="font-mono font-semibold text-steel-600">
-                  Estimate: {fmtMoney(cableInstallationCost)}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Cable Installation (Cable Costs)</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Working out cabling costs is sometimes described as a dark art. The price is essentially a function of your switchboard's current rating, the charging load, and how far we need to run the wires — but small details in copper sizing and site layout can have an outsized effect. On many sites, cabling can account for up to 60% of total installation costs. To refine pricing, we'll need photos of your mains and distribution boards, along with a clear sense of site layout.
+                    </p>
+                  </div>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(cableInstallationCost)}
+                  </div>
                 </div>
               </div>
 
@@ -168,12 +178,16 @@ export default function PriceEstimate() {
 
               {/* Cable Carrier */}
               <div className="border-l-4 border-warm-orange pl-4">
-                <h4 className="font-medium text-steel-600 mb-2">Cable Carrier (Conduit/Tray)</h4>
-                <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                  Cost of the physical carrier for the cable run — either conduit or tray depending on the installation type. This ensures cabling is safely supported and compliant, priced per meter with markup applied.
-                </p>
-                <div className="font-mono font-semibold text-steel-600">
-                  Estimate: {fmtMoney(carrierCost)}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Cable Carrier (Conduit/Tray)</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Cost of the physical carrier for the cable run — either conduit or tray depending on installation type. This ensures cabling is safely supported and compliant, priced per metre.
+                    </p>
+                  </div>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(carrierCost)}
+                  </div>
                 </div>
               </div>
 
@@ -181,25 +195,33 @@ export default function PriceEstimate() {
 
               {/* Installation & Commissioning */}
               <div className="border-l-4 border-warm-orange pl-4">
-                <h4 className="font-medium text-steel-600 mb-2">Installation & Commissioning</h4>
-                <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                  Labour and engineering services to install equipment, integrate with existing electrical infrastructure, and certify compliance. Includes commissioning and handover.
-                </p>
-                <div className="font-mono font-semibold text-steel-600">
-                  Estimate: {fmtMoney(installationCommissioningCost)}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Installation & Commissioning</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Labour and engineering services to install equipment, integrate with existing electrical infrastructure, and certify compliance. Includes commissioning and handover.
+                    </p>
+                  </div>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(installationCommissioningCost)}
+                  </div>
                 </div>
               </div>
 
               <div className="border-t border-steel-200"></div>
 
-              {/* One-off Cost */}
+              {/* Final Price / Grand Total */}
               <div className="border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg -ml-4">
-                <h4 className="font-medium text-steel-600 mb-2">One-off Cost</h4>
-                <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                  Total upfront cost of equipment, cabling, and installation combined.
-                </p>
-                <div className="font-mono font-bold text-lg text-warm-orange">
-                  Estimate: {fmtMoney(quoteData.estimate!.finalPrice)}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Final Price / Grand Total</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Total upfront cost of equipment, cabling, and installation combined.
+                    </p>
+                  </div>
+                  <div className="font-mono font-bold text-lg text-warm-orange ml-4">
+                    {fmtMoney(quoteData.estimate!.finalPrice)}
+                  </div>
                 </div>
               </div>
 
@@ -207,12 +229,16 @@ export default function PriceEstimate() {
 
               {/* Annual Opex */}
               <div className="border-l-4 border-steel-400 pl-4">
-                <h4 className="font-medium text-steel-600 mb-2">Annual Opex (if applicable)</h4>
-                <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                  Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
-                </p>
-                <div className="font-mono font-semibold text-steel-600">
-                  Estimate: {fmtMoney(metrics.operatingCostPA)}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Annual Opex (if applicable)</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
+                    </p>
+                  </div>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(metrics.operatingCostPA)}
+                  </div>
                 </div>
               </div>
             </div>
