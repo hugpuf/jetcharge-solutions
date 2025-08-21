@@ -153,7 +153,7 @@ export default function Calculator() {
           </div>
 
           {/* Calculator Column */}
-          <div className="order-2 lg:order-2 w-full max-w-[19rem] lg:max-w-[24rem] mx-auto flex flex-col">
+          <div className="order-2 lg:order-2 relative w-full max-w-md lg:max-w-none mx-auto">
             {/* Logo suspended above steel panel */}
             <div className="flex justify-center mb-6">
               <img 
@@ -163,7 +163,7 @@ export default function Calculator() {
               />
             </div>
             
-            <Card className="steel-panel elevation-plate flex flex-col">
+            <Card className="steel-panel elevation-plate h-full">
               <CardHeader className="pb-6">
                 <CardTitle className="text-2xl font-medium tracking-tight text-chrome-white text-center">
                   CREATE YOUR CHARGING STATION
@@ -410,8 +410,8 @@ export default function Calculator() {
               </CardContent>
             </Card>
 
-            {/* Call to Action */}
-            <div className="mt-5 shrink-0">
+            {/* Call to Action - Floating separate from steel panel */}
+            <div className="absolute -bottom-20 left-0 right-0">
               <Button 
                 onClick={() => {
                   if (!siteType) return;
