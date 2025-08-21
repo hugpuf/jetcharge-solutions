@@ -153,7 +153,7 @@ export default function Calculator() {
           </div>
 
           {/* Calculator Column */}
-          <div className="order-2 lg:order-2 w-full max-w-md lg:max-w-xl mx-auto flex flex-col">
+          <div className="order-2 lg:order-2 w-full max-w-[24rem] lg:max-w-[30rem] mx-auto flex flex-col">
             {/* Logo suspended above steel panel */}
             <div className="flex justify-center mb-6">
               <img 
