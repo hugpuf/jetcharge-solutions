@@ -198,16 +198,18 @@ export default function PriceEstimate() {
               <div className="border-t border-steel-200"></div>
 
               {/* Final Price / Grand Total */}
-              <div className="border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg -ml-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Final Price / Grand Total</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Total upfront cost of equipment, cabling, and installation combined.
-                    </p>
-                  </div>
-                  <div className="font-mono font-bold text-lg text-warm-orange ml-4">
-                    {fmtMoney(quoteData.estimate!.finalPrice)}
+              <div className="flex justify-end">
+                <div className="w-1/2 border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <h4 className="font-medium text-steel-600 mb-2">Final Price / Grand Total</h4>
+                      <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                        Total upfront cost of equipment, cabling, and installation combined.
+                      </p>
+                    </div>
+                    <div className="font-mono font-bold text-lg text-warm-orange ml-4">
+                      {fmtMoney(quoteData.estimate!.finalPrice)}
+                    </div>
                   </div>
                 </div>
               </div>
