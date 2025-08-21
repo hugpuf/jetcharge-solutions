@@ -1,7 +1,13 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Download, Phone } from 'lucide-react';
+import { ArrowLeft, Download, Phone, ChevronDown } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { deserializeQuoteData, generateQuoteNumber, calculateQuoteMetrics, type QuoteData } from '@/lib/quote';
 import { fmtMoney } from '@/lib/estimate';
 import { assumptionsStore } from '@/lib/assumptions';
@@ -130,115 +136,119 @@ export default function PriceEstimate() {
               Cost Breakdown
             </h3>
             
-            <div className="space-y-6">
+            <Accordion type="multiple" className="space-y-4">
               {/* Charger Hardware */}
-              <div className="border-l-4 border-warm-orange pl-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Charger Hardware</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Cost of AC and DC charging units, calculated as quantity multiplied by unit price. This represents the hardware itself, not installation.
-                    </p>
-                  </div>
+              <AccordionItem value="charger-hardware" className="border-l-4 border-warm-orange pl-4 border-0">
+                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
+                  <h4 className="font-medium text-steel-600">Charger Hardware</h4>
                   <div className="font-mono font-semibold text-steel-600 ml-4">
                     {fmtMoney(chargerHardwareCost)}
                   </div>
-                </div>
-              </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-4">
+                  <p className="text-sm text-steel-500 leading-relaxed">
+                    Cost of AC and DC charging units, calculated as quantity multiplied by unit price. This represents the hardware itself, not installation.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
 
               <div className="border-t border-steel-200"></div>
 
               {/* Cable Installation */}
-              <div className="border-l-4 border-warm-orange pl-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Cable Installation (Cable Costs)</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Working out cabling costs is sometimes described as a dark art. The price is essentially a function of your switchboard's current rating, the charging load, and how far we need to run the wires — but small details in copper sizing and site layout can have an outsized effect. On many sites, cabling can account for up to 60% of total installation costs. To refine pricing, we'll need photos of your mains and distribution boards, along with a clear sense of site layout.
-                    </p>
-                  </div>
+              <AccordionItem value="cable-installation" className="border-l-4 border-warm-orange pl-4 border-0">
+                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
+                  <h4 className="font-medium text-steel-600">Cable Installation (Cable Costs)</h4>
                   <div className="font-mono font-semibold text-steel-600 ml-4">
                     {fmtMoney(cableInstallationCost)}
                   </div>
-                </div>
-              </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-4">
+                  <p className="text-sm text-steel-500 leading-relaxed">
+                    Working out cabling costs is sometimes described as a dark art. The price is essentially a function of your switchboard's current rating, the charging load, and how far we need to run the wires — but small details in copper sizing and site layout can have an outsized effect. On many sites, cabling can account for up to 60% of total installation costs. To refine pricing, we'll need photos of your mains and distribution boards, along with a clear sense of site layout.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
 
               <div className="border-t border-steel-200"></div>
 
               {/* Cable Carrier */}
-              <div className="border-l-4 border-warm-orange pl-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Cable Carrier (Conduit/Tray)</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">Costs of the physical carrier for the cables, as either tray or underground trenching depending on installation type. This ensures cabling is safely supported and compliant, priced per metre.</p>
-                  </div>
+              <AccordionItem value="cable-carrier" className="border-l-4 border-warm-orange pl-4 border-0">
+                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
+                  <h4 className="font-medium text-steel-600">Cable Carrier (Conduit/Tray)</h4>
                   <div className="font-mono font-semibold text-steel-600 ml-4">
                     {fmtMoney(carrierCost)}
                   </div>
-                </div>
-              </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-4">
+                  <p className="text-sm text-steel-500 leading-relaxed">
+                    Costs of the physical carrier for the cables, as either tray or underground trenching depending on installation type. This ensures cabling is safely supported and compliant, priced per metre.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
 
               <div className="border-t border-steel-200"></div>
 
               {/* Installation & Commissioning */}
-              <div className="border-l-4 border-warm-orange pl-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Installation & Commissioning</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Labour and engineering services to install equipment, integrate with existing electrical infrastructure, and certify compliance. Includes commissioning and handover.
-                    </p>
-                  </div>
+              <AccordionItem value="installation-commissioning" className="border-l-4 border-warm-orange pl-4 border-0">
+                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
+                  <h4 className="font-medium text-steel-600">Installation & Commissioning</h4>
                   <div className="font-mono font-semibold text-steel-600 ml-4">
                     {fmtMoney(installationCommissioningCost)}
                   </div>
-                </div>
-              </div>
-
-              <div className="border-t border-steel-200"></div>
-
-              {/* Final Price / Grand Total */}
-              <div className="flex justify-between items-start gap-6">
-                {/* Legal Disclaimer */}
-                <div className="w-1/2 bg-warm-orange/10 border border-warm-orange/20 rounded-lg p-4">
-                  <p className="text-xs text-steel-600 leading-relaxed">
-                    JET Charge has taken care to ensure this information is as accurate and informative as possible. Electric vehicle charging system performance depends on a number of variables, including site-specific electrical infrastructure, vehicle specifications, user charging behaviour, and local network conditions. JET Charge cannot guarantee that the results outlined in this quote will be achieved in all scenarios.
+                </AccordionTrigger>
+                <AccordionContent className="pb-4">
+                  <p className="text-sm text-steel-500 leading-relaxed">
+                    Labour and engineering services to install equipment, integrate with existing electrical infrastructure, and certify compliance. Includes commissioning and handover.
                   </p>
-                </div>
-                
-                {/* Estimated Total */}
-                <div className="w-1/2 border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <h4 className="font-medium text-steel-600 mb-2">Estimated Total</h4>
-                      <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                        Total upfront cost of equipment, cabling, and installation combined.
-                      </p>
-                    </div>
-                    <div className="font-mono font-bold text-lg text-warm-orange ml-4">
-                      {fmtMoney(quoteData.estimate!.finalPrice)}
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
               <div className="border-t border-steel-200"></div>
+            </Accordion>
 
-              {/* Annual Opex */}
-              <div className="border-l-4 border-steel-400 pl-4">
+            {/* Final Price / Grand Total */}
+            <div className="flex justify-between items-start gap-6 mt-6">
+              {/* Legal Disclaimer */}
+              <div className="w-1/2 bg-warm-orange/10 border border-warm-orange/20 rounded-lg p-4">
+                <p className="text-xs text-steel-600 leading-relaxed">
+                  JET Charge has taken care to ensure this information is as accurate and informative as possible. Electric vehicle charging system performance depends on a number of variables, including site-specific electrical infrastructure, vehicle specifications, user charging behaviour, and local network conditions. JET Charge cannot guarantee that the results outlined in this quote will be achieved in all scenarios.
+                </p>
+              </div>
+              
+              {/* Estimated Total */}
+              <div className="w-1/2 border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Annual Opex (if applicable)</h4>
+                    <h4 className="font-medium text-steel-600 mb-2">Estimated Total</h4>
                     <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
+                      Total upfront cost of equipment, cabling, and installation combined.
                     </p>
                   </div>
-                  <div className="font-mono font-semibold text-steel-600 ml-4">
-                    {fmtMoney(metrics.operatingCostPA)}
+                  <div className="font-mono font-bold text-lg text-warm-orange ml-4">
+                    {fmtMoney(quoteData.estimate!.finalPrice)}
                   </div>
                 </div>
               </div>
             </div>
+
+            <div className="border-t border-steel-200 mt-6"></div>
+
+            <Accordion type="multiple" className="mt-6">
+              {/* Annual Opex */}
+              <AccordionItem value="annual-opex" className="border-l-4 border-steel-400 pl-4 border-0">
+                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
+                  <h4 className="font-medium text-steel-600">Annual Opex (if applicable)</h4>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(metrics.operatingCostPA)}
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-4">
+                  <p className="text-sm text-steel-500 leading-relaxed">
+                    Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </section>
           
           {/* Notes & Assumptions */}
