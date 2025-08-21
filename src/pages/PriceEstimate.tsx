@@ -71,9 +71,11 @@ export default function PriceEstimate() {
           
           {/* Header */}
           <header className="flex items-start justify-between p-6 border-b border-steel-200">
-            <div className="font-semibold tracking-wide text-steel-600 text-xl">
-              JetCharge
-            </div>
+            <img 
+              src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png"
+              alt="Jet Charge Logo"
+              className="h-8 w-auto"
+            />
             <div className="text-sm leading-5 text-steel-400 text-right">
               <div><span className="font-semibold text-steel-600">ESTIMATE #</span> {quoteNumber}</div>
               <div>Date: {dateGenerated}</div>

@@ -73,7 +73,12 @@ export default function LoadingEstimate() {
           </div>
           
           {/* Loading message */}
-          <div className="text-center py-8">
+          <div className="text-center py-8 space-y-6">
+            <img 
+              src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png"
+              alt="Jet Charge Logo"
+              className="h-10 w-auto mx-auto opacity-80"
+            />
             <div className="inline-flex items-center gap-3 text-steel-600">
               <div className="w-6 h-6 border-2 border-warm-orange border-t-transparent rounded-full animate-spin" />
               <span className="text-lg font-medium">Preparing your estimate...</span>

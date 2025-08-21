@@ -109,6 +109,15 @@ const Index = () => {
   return (
     <div className="min-h-screen p-6 flex items-center justify-center" style={{ background: 'var(--gradient-warm-sweep)' }}>
       <div className="w-full max-w-md space-y-8">
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <img 
+            src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png"
+            alt="Jet Charge Logo"
+            className="h-10 w-auto"
+          />
+        </div>
+
         {/* Header */}
         <div className="text-center">
           <h1 className="text-2xl font-medium tracking-tight text-steel-600 mb-2">
