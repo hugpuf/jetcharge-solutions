@@ -135,9 +135,6 @@ export default function PriceEstimate() {
                 <div className="text-2xl font-mono font-semibold text-steel-600">
                   {fmtMoney(quoteData.estimate!.finalPrice)}
                 </div>
-                <div className="text-xs mt-2 text-steel-400">
-                  ≈ {fmtMoney(monthlyEquivalent)}/mo
-                </div>
               </div>
             </div>
           </div>
