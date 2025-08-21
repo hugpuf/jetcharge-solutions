@@ -134,10 +134,12 @@ export default function PriceEstimate() {
             <Accordion type="multiple" className="space-y-4">
               {/* Charger Hardware */}
               <AccordionItem value="charger-hardware" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
-                  <h4 className="font-medium text-steel-600">Charger Hardware</h4>
-                  <div className="font-mono font-semibold text-steel-600">
-                    {fmtMoney(chargerHardwareCost)}
+                <AccordionTrigger className="hover:no-underline py-2">
+                  <div className="flex justify-between items-center w-full mr-2">
+                    <h4 className="font-medium text-steel-600">Charger Hardware</h4>
+                    <div className="font-mono font-semibold text-steel-600">
+                      {fmtMoney(chargerHardwareCost)}
+                    </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-4">
@@ -151,10 +153,12 @@ export default function PriceEstimate() {
 
               {/* Cable Installation */}
               <AccordionItem value="cable-installation" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
-                  <h4 className="font-medium text-steel-600">Cable Installation (Cable Costs)</h4>
-                  <div className="font-mono font-semibold text-steel-600">
-                    {fmtMoney(cableInstallationCost)}
+                <AccordionTrigger className="hover:no-underline py-2">
+                  <div className="flex justify-between items-center w-full mr-2">
+                    <h4 className="font-medium text-steel-600">Cable Installation (Cable Costs)</h4>
+                    <div className="font-mono font-semibold text-steel-600">
+                      {fmtMoney(cableInstallationCost)}
+                    </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-4">
@@ -168,10 +172,12 @@ export default function PriceEstimate() {
 
               {/* Cable Carrier */}
               <AccordionItem value="cable-carrier" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
-                  <h4 className="font-medium text-steel-600">Cable Carrier (Conduit/Tray)</h4>
-                  <div className="font-mono font-semibold text-steel-600">
-                    {fmtMoney(carrierCost)}
+                <AccordionTrigger className="hover:no-underline py-2">
+                  <div className="flex justify-between items-center w-full mr-2">
+                    <h4 className="font-medium text-steel-600">Cable Carrier (Conduit/Tray)</h4>
+                    <div className="font-mono font-semibold text-steel-600">
+                      {fmtMoney(carrierCost)}
+                    </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-4">
@@ -185,10 +191,12 @@ export default function PriceEstimate() {
 
               {/* Installation & Commissioning */}
               <AccordionItem value="installation-commissioning" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
-                  <h4 className="font-medium text-steel-600">Installation & Commissioning</h4>
-                  <div className="font-mono font-semibold text-steel-600">
-                    {fmtMoney(installationCommissioningCost)}
+                <AccordionTrigger className="hover:no-underline py-2">
+                  <div className="flex justify-between items-center w-full mr-2">
+                    <h4 className="font-medium text-steel-600">Installation & Commissioning</h4>
+                    <div className="font-mono font-semibold text-steel-600">
+                      {fmtMoney(installationCommissioningCost)}
+                    </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-4">
