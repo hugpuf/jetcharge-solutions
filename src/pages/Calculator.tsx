@@ -160,13 +160,11 @@ export default function Calculator() {
           <div className="order-2 lg:order-2 relative w-full max-w-md lg:max-w-none mx-auto">
             {/* Logo suspended above steel panel */}
             <div className="flex justify-center mb-6">
-              <div className="animate-float">
-                <img 
-                  src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png"
-                  alt="Jet Charge Logo"
-                  className="h-12 w-auto"
-                />
-              </div>
+              <img 
+                src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png"
+                alt="Jet Charge Logo"
+                className="h-12 w-auto"
+              />
             </div>
             
             <Card className="steel-panel elevation-plate h-full">
