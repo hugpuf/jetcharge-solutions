@@ -91,30 +91,37 @@ export default function PriceEstimate() {
               <h3 className="text-sm uppercase tracking-wider mb-3 text-steel-600 font-medium">
                 Site Details
               </h3>
-              <div className="space-y-3 text-sm">
-                <div>
-                  <span className="font-medium text-steel-600">Type:</span>{' '}
-                  <span className="text-steel-500">{quoteData.siteType}</span>
+              <div className="grid grid-cols-2 gap-6 text-sm">
+                {/* Left Column */}
+                <div className="space-y-3">
+                  <div>
+                    <span className="font-medium text-steel-600">Type:</span>{' '}
+                    <span className="text-steel-500">{quoteData.siteType}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium text-steel-600">AC Chargers:</span>{' '}
+                    <span className="text-steel-500">{quoteData.acCount || 0}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium text-steel-600">DC Chargers:</span>{' '}
+                    <span className="text-steel-500">{quoteData.dcCount || 0}</span>
+                  </div>
                 </div>
-                <div>
-                  <span className="font-medium text-steel-600">Install:</span>{' '}
-                  <span className="text-steel-500">{quoteData.isUnderground ? 'Underground' : 'Surface'}</span>
-                </div>
-                <div>
-                  <span className="font-medium text-steel-600">AC Chargers:</span>{' '}
-                  <span className="text-steel-500">{quoteData.acCount || 0}</span>
-                </div>
-                <div>
-                  <span className="font-medium text-steel-600">DC Chargers:</span>{' '}
-                  <span className="text-steel-500">{quoteData.dcCount || 0}</span>
-                </div>
-                <div>
-                  <span className="font-medium text-steel-600">Estimated Cable Run:</span>{' '}
-                  <span className="text-steel-500">{quoteData.effectiveRunM || 0} m</span>
-                </div>
-                <div>
-                  <span className="font-medium text-steel-600">Civil works:</span>{' '}
-                  <span className="text-steel-500">{quoteData.isUnderground ? 'Yes' : 'No'}</span>
+                
+                {/* Right Column */}
+                <div className="space-y-3">
+                  <div>
+                    <span className="font-medium text-steel-600">Estimated Cable Run:</span>{' '}
+                    <span className="text-steel-500">{quoteData.effectiveRunM || 0} m</span>
+                  </div>
+                  <div>
+                    <span className="font-medium text-steel-600">Install:</span>{' '}
+                    <span className="text-steel-500">{quoteData.isUnderground ? 'Underground' : 'Surface'}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium text-steel-600">Civil works:</span>{' '}
+                    <span className="text-steel-500">{quoteData.isUnderground ? 'Yes' : 'No'}</span>
+                  </div>
                 </div>
               </div>
             </div>
