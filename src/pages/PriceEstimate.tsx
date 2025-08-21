@@ -259,20 +259,33 @@ export default function PriceEstimate() {
             
           </section>
           
+          {/* Call to Action Section */}
+          <section className="px-6 py-8 border-t border-steel-200 print:hidden">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <img src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png" alt="Jet Charge Logo" className="h-6 w-auto opacity-60" />
+                <div>
+                  <h3 className="font-medium text-steel-600 mb-1">Ready to move forward?</h3>
+                  <p className="text-sm text-steel-500">Book a session with our sales team to discuss your project in detail.</p>
+                </div>
+              </div>
+              <Button className="bg-warm-orange text-chrome-white hover:bg-warm-amber px-6 py-3 text-base font-medium" onClick={handleContactSales}>
+                <Phone className="w-4 h-4 mr-2" />
+                Book Sales Session
+              </Button>
+            </div>
+          </section>
+
           {/* Footer Actions */}
-          <footer className="p-6 flex gap-3 justify-between print:hidden">
-            <Button variant="outline" className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange" onClick={handleEditInputs}>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Edit Inputs
-            </Button>
-            <div className="flex gap-3">
+          <footer className="px-6 py-4 bg-steel-50 border-t border-steel-200 print:hidden">
+            <div className="flex items-center justify-between">
+              <Button variant="outline" className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange" onClick={handleEditInputs}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Edit Inputs
+              </Button>
               <Button variant="outline" className="border-steel-600 text-steel-600 bg-chrome-white hover:bg-chrome-white hover:text-warm-orange" onClick={handlePrint}>
                 <Download className="w-4 h-4 mr-2" />
-                Download / Print
-              </Button>
-              <Button className="bg-warm-orange text-chrome-white hover:bg-warm-amber" onClick={handleContactSales}>
-                <Phone className="w-4 h-4 mr-2" />
-                Contact Sales
+                Download as PDF
               </Button>
             </div>
           </footer>
