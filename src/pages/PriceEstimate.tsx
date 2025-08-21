@@ -86,7 +86,7 @@ export default function PriceEstimate() {
           
           {/* Site Details */}
           <div className="px-6 mb-6">
-            <div className="flex items-start gap-8">
+            <div className="flex items-start gap-8 pt-6">
               <h3 className="text-sm uppercase tracking-wider text-steel-600 font-medium whitespace-nowrap pt-4">
                 Site Details
               </h3>
