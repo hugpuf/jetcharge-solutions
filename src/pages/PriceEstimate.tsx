@@ -198,7 +198,15 @@ export default function PriceEstimate() {
               <div className="border-t border-steel-200"></div>
 
               {/* Final Price / Grand Total */}
-              <div className="flex justify-end">
+              <div className="flex justify-between items-start gap-6">
+                {/* Legal Disclaimer */}
+                <div className="w-1/2 bg-warm-orange/10 border border-warm-orange/20 rounded-lg p-4">
+                  <p className="text-xs text-steel-600 leading-relaxed">
+                    JET Charge has taken care to ensure this information is as accurate and informative as possible. Electric vehicle charging system performance depends on a number of variables, including site-specific electrical infrastructure, vehicle specifications, user charging behaviour, and local network conditions. JET Charge cannot guarantee that the results outlined in this quote will be achieved in all scenarios.
+                  </p>
+                </div>
+                
+                {/* Estimated Total */}
                 <div className="w-1/2 border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
