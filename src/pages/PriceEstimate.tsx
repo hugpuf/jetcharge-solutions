@@ -89,64 +89,42 @@ export default function PriceEstimate() {
             <h3 className="text-sm uppercase tracking-wider mb-6 text-steel-600 font-medium">
               Site Details
             </h3>
-            <div className="grid grid-cols-3 gap-6">
-              {/* Column 1 */}
-              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
-                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                  Type
+            <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
+              <div className="grid grid-cols-3 gap-6 text-sm">
+                {/* Column 1 */}
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-steel-400 mb-1">Type</div>
+                    <div className="font-mono font-semibold text-steel-600">{quoteData.siteType}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-steel-400 mb-1">AC Chargers</div>
+                    <div className="font-mono font-semibold text-steel-600">{quoteData.acCount || 0}</div>
+                  </div>
                 </div>
-                <div className="text-lg font-mono font-semibold text-steel-600">
-                  {quoteData.siteType}
+                
+                {/* Column 2 */}
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-steel-400 mb-1">DC Chargers</div>
+                    <div className="font-mono font-semibold text-steel-600">{quoteData.dcCount || 0}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-steel-400 mb-1">Cable Run</div>
+                    <div className="font-mono font-semibold text-steel-600">{quoteData.effectiveRunM || 0} m</div>
+                  </div>
                 </div>
-              </div>
-              
-              {/* Column 2 */}
-              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
-                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                  AC Chargers
-                </div>
-                <div className="text-lg font-mono font-semibold text-steel-600">
-                  {quoteData.acCount || 0}
-                </div>
-              </div>
-              
-              {/* Column 3 */}
-              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
-                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                  DC Chargers
-                </div>
-                <div className="text-lg font-mono font-semibold text-steel-600">
-                  {quoteData.dcCount || 0}
-                </div>
-              </div>
-              
-              {/* Column 4 */}
-              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
-                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                  Cable Run
-                </div>
-                <div className="text-lg font-mono font-semibold text-steel-600">
-                  {quoteData.effectiveRunM || 0} m
-                </div>
-              </div>
-              
-              {/* Column 5 */}
-              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
-                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                  Install
-                </div>
-                <div className="text-lg font-mono font-semibold text-steel-600">
-                  {quoteData.isUnderground ? 'Underground' : 'Surface'}
-                </div>
-              </div>
-              
-              {/* Column 6 */}
-              <div className="border border-steel-200 rounded-lg p-4 bg-steel-50">
-                <div className="text-xs uppercase tracking-widest text-steel-400 mb-2">
-                  Civil Works
-                </div>
-                <div className="text-lg font-mono font-semibold text-steel-600">
-                  {quoteData.isUnderground ? 'Yes' : 'No'}
+                
+                {/* Column 3 */}
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-steel-400 mb-1">Install</div>
+                    <div className="font-mono font-semibold text-steel-600">{quoteData.isUnderground ? 'Underground' : 'Surface'}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-steel-400 mb-1">Civil Works</div>
+                    <div className="font-mono font-semibold text-steel-600">{quoteData.isUnderground ? 'Yes' : 'No'}</div>
+                  </div>
                 </div>
               </div>
             </div>
