@@ -260,7 +260,7 @@ export default function PriceEstimate() {
           </section>
           
           {/* Call to Action Section */}
-          <section className="px-6 py-8 border-t border-steel-200 print:hidden">
+          <section className="px-8 py-6 border-t border-steel-200 print:hidden">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <img src="/lovable-uploads/518ccbf1-fd23-4602-bb72-94d5909d7c4c.png" alt="Jet Charge Logo" className="h-6 w-auto opacity-60" />
