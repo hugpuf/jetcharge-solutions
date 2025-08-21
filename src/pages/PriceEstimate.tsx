@@ -63,9 +63,9 @@ export default function PriceEstimate() {
   const handleContactSales = () => {
     setIsContactModalOpen(true);
   };
-  return <>
-      <main className="min-h-screen bg-gradient-warm-sweep flex items-center justify-center p-6 print:bg-white print:p-0">
-        <section aria-label="Price Estimate" className="relative w-[794px] max-w-full aspect-[210/297] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none overflow-hidden print:overflow-visible">
+    return <>
+      <main className="min-h-screen bg-gradient-warm-sweep flex items-start justify-center p-6 print:bg-white print:p-0">
+        <section aria-label="Price Estimate" className="relative w-[794px] max-w-full min-h-[1123px] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none print:overflow-visible">
           {/* Neon edge glow - hidden in print */}
           <div className="pointer-events-none absolute inset-0 rounded-xl shadow-warm print:hidden" />
           
@@ -198,16 +198,26 @@ export default function PriceEstimate() {
               <div className="border-t border-steel-200"></div>
 
               {/* Final Price / Grand Total */}
-              <div className="border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg -ml-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-steel-600 mb-2">Final Price / Grand Total</h4>
-                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
-                      Total upfront cost of equipment, cabling, and installation combined.
-                    </p>
-                  </div>
-                  <div className="font-mono font-bold text-lg text-warm-orange ml-4">
-                    {fmtMoney(quoteData.estimate!.finalPrice)}
+              <div className="flex justify-between items-start gap-6">
+                {/* Legal Disclaimer */}
+                <div className="w-1/2 bg-warm-orange/10 border border-warm-orange/20 rounded-lg p-4">
+                  <p className="text-xs text-steel-600 leading-relaxed">
+                    JET Charge has taken care to ensure this information is as accurate and informative as possible. Electric vehicle charging system performance depends on a number of variables, including site-specific electrical infrastructure, vehicle specifications, user charging behaviour, and local network conditions. JET Charge cannot guarantee that the results outlined in this quote will be achieved in all scenarios.
+                  </p>
+                </div>
+                
+                {/* Estimated Total */}
+                <div className="w-1/2 border-l-4 border-warm-amber pl-4 bg-steel-50 p-4 rounded-r-lg">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <h4 className="font-medium text-steel-600 mb-2">Estimated Total</h4>
+                      <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                        Total upfront cost of equipment, cabling, and installation combined.
+                      </p>
+                    </div>
+                    <div className="font-mono font-bold text-lg text-warm-orange ml-4">
+                      {fmtMoney(quoteData.estimate!.finalPrice)}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -216,7 +226,17 @@ export default function PriceEstimate() {
 
               {/* Annual Opex */}
               <div className="border-l-4 border-steel-400 pl-4">
-                
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-steel-600 mb-2">Annual Opex (if applicable)</h4>
+                    <p className="text-sm text-steel-500 mb-3 leading-relaxed">
+                      Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
+                    </p>
+                  </div>
+                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                    {fmtMoney(metrics.operatingCostPA)}
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -227,7 +247,13 @@ export default function PriceEstimate() {
               <h4 className="text-sm uppercase tracking-wider mb-3 text-steel-600 font-medium">
                 Notes & Assumptions
               </h4>
-              
+              <ul className="text-xs text-steel-500 space-y-2 leading-relaxed">
+                <li>• Cable run and trenching based on provided inputs.</li>
+                <li>• Switchboard capacity adequate; upgrades priced if required.</li>
+                <li>• Final pricing subject to site verification and engineering assessment.</li>
+                <li>• Installation includes commissioning and compliance certification.</li>
+                <li>• This is an estimate only and not a firm price commitment.</li>
+              </ul>
             </div>
           </section>
           
@@ -238,7 +264,10 @@ export default function PriceEstimate() {
                 <div className="font-medium text-steel-600 mb-1">Lead Time</div>
                 <div className="text-steel-500">6-8 weeks</div>
               </div>
-              
+              <div className="bg-steel-50 border border-steel-200 rounded-lg p-3 text-center">
+                <div className="font-medium text-steel-600 mb-1">Warranty</div>
+                <div className="text-steel-500">3 years full</div>
+              </div>
               <div className="bg-steel-50 border border-steel-200 rounded-lg p-3 text-center">
                 <div className="font-medium text-steel-600 mb-1">Support</div>
                 <div className="text-steel-500">24/7 remote</div>
