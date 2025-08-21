@@ -90,7 +90,7 @@ export default function PriceEstimate() {
               <h3 className="text-sm uppercase tracking-wider text-steel-600 font-medium whitespace-nowrap pt-4">
                 Site Details
               </h3>
-              <div className="flex-1 border border-steel-200 rounded-lg p-6 bg-steel-50">
+              <div className="w-2/3 border border-steel-200 rounded-lg p-6 bg-steel-50">
                 <div className="grid grid-cols-2 gap-8 text-sm">
                   {/* Column 1 */}
                   <div className="space-y-4">
