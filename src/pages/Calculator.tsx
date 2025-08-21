@@ -144,7 +144,7 @@ export default function Calculator() {
                     <img 
                       src="/lovable-uploads/7d605a02-6685-4391-a10b-bb0f094ec375.png"
                       alt="Apartment building with EV charging stations - isometric view"
-                      className="w-full h-auto max-w-md mx-auto"
+                      className="w-full h-auto max-w-xl mx-auto"
                     />
                   </div>
                 )}
