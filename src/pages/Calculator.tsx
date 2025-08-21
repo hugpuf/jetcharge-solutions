@@ -138,6 +138,16 @@ export default function Calculator() {
           <div className="order-1 lg:order-1 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
             <div className="w-full max-w-lg relative">
               <div className="relative animate-float">
+                {/* Car Dealership image - only show when car dealership is selected */}
+                {siteType === "Car Dealership" && (
+                  <div className="w-full animate-fade-in relative z-10">
+                    <img 
+                      src="/lovable-uploads/a6508d4c-17f4-4e6e-94f5-2d3ee14b6a68.png"
+                      alt="Car dealership with EV charging stations - isometric view"
+                      className="w-full h-auto max-w-xl mx-auto"
+                    />
+                  </div>
+                )}
                 {/* Apartment image - only show when apartment is selected */}
                 {siteType === "Apartment" && (
                   <div className="w-full animate-fade-in relative z-10">
@@ -149,7 +159,7 @@ export default function Calculator() {
                   </div>
                 )}
                 {/* Orange glow underneath */}
-                {siteType === "Apartment" && (
+                {(siteType === "Apartment" || siteType === "Car Dealership") && (
                   <div className="absolute inset-x-0 bottom-0 h-8 bg-warm-orange/30 blur-xl rounded-full transform translate-y-4 scale-75"></div>
                 )}
               </div>
