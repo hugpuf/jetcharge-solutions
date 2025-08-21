@@ -1,7 +1,7 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Download, Phone, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Download, Calendar, ChevronDown } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { deserializeQuoteData, generateQuoteNumber, calculateQuoteMetrics, type QuoteData } from '@/lib/quote';
 import { fmtMoney } from '@/lib/estimate';
@@ -270,7 +270,7 @@ export default function PriceEstimate() {
                 </div>
               </div>
               <Button className="bg-warm-orange text-chrome-white hover:bg-warm-amber px-6 py-3 text-base font-medium" onClick={handleContactSales}>
-                <Phone className="w-4 h-4 mr-2" />
+                <Calendar className="w-4 h-4 mr-2" />
                 Book Sales Session
               </Button>
             </div>
