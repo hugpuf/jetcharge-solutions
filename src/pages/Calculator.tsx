@@ -27,7 +27,7 @@ const DEFAULT_FACTOR_INDEX = 2; // Index for 1.0 (default)
 
 export default function Calculator() {
   const navigate = useNavigate();
-  const [siteType, setSiteType] = useState<SiteType | null>('Public Station');
+  const [siteType, setSiteType] = useState<SiteType | null>(null);
   const [acCount, setAcCount] = useState(0);
   const [dcCount, setDcCount] = useState(0);
   const [isUnderground, setIsUnderground] = useState(false);
@@ -47,7 +47,8 @@ export default function Calculator() {
   const runFactor = FACTOR_VALUES[runFactorIndex];
 
   const calculateEstimate = useCallback(() => {
-    if (!siteType) {
+    // Return zero estimate if no site type selected or no chargers
+    if (!siteType || (acCount === 0 && dcCount === 0)) {
       return {
         effectiveRunM: 0,
         perMeterRate: 0,
