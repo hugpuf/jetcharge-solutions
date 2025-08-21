@@ -2,12 +2,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Download, Phone, ChevronDown } from 'lucide-react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { deserializeQuoteData, generateQuoteNumber, calculateQuoteMetrics, type QuoteData } from '@/lib/quote';
 import { fmtMoney } from '@/lib/estimate';
 import { assumptionsStore } from '@/lib/assumptions';
@@ -69,7 +64,7 @@ export default function PriceEstimate() {
   const handleContactSales = () => {
     setIsContactModalOpen(true);
   };
-    return <>
+  return <>
       <main className="min-h-screen bg-gradient-warm-sweep flex items-start justify-center p-6 print:bg-white print:p-0">
         <section aria-label="Price Estimate" className="relative w-[794px] max-w-full min-h-[1123px] bg-chrome-white shadow-large border border-steel-200 rounded-xl print:shadow-none print:border-0 print:rounded-none print:overflow-visible">
           {/* Neon edge glow - hidden in print */}
@@ -244,14 +239,7 @@ export default function PriceEstimate() {
             <Accordion type="multiple" className="mt-6">
               {/* Annual Opex */}
               <AccordionItem value="annual-opex" className="border-l-4 border-steel-400 pl-4 border-0">
-                <div className="flex justify-between items-center">
-                  <AccordionTrigger className="flex items-center gap-2 hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
-                    <h4 className="font-medium text-steel-600">Annual Opex (if applicable)</h4>
-                  </AccordionTrigger>
-                  <div className="font-mono font-semibold text-steel-600">
-                    {fmtMoney(metrics.operatingCostPA)}
-                  </div>
-                </div>
+                
                 <AccordionContent className="pb-4">
                   <p className="text-sm text-steel-500 leading-relaxed">
                     Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
@@ -263,36 +251,12 @@ export default function PriceEstimate() {
           
           {/* Notes & Assumptions */}
           <section className="px-6 mb-6">
-            <div className="bg-steel-50 border border-steel-200 rounded-lg p-4">
-              <h4 className="text-sm uppercase tracking-wider mb-3 text-steel-600 font-medium">
-                Notes & Assumptions
-              </h4>
-              <ul className="text-xs text-steel-500 space-y-2 leading-relaxed">
-                <li>• Cable run and trenching based on provided inputs.</li>
-                <li>• Switchboard capacity adequate; upgrades priced if required.</li>
-                <li>• Final pricing subject to site verification and engineering assessment.</li>
-                <li>• Installation includes commissioning and compliance certification.</li>
-                <li>• This is an estimate only and not a firm price commitment.</li>
-              </ul>
-            </div>
+            
           </section>
           
           {/* Callouts */}
           <section className="px-6 mb-6">
-            <div className="grid grid-cols-3 gap-4 text-xs">
-              <div className="bg-steel-50 border border-steel-200 rounded-lg p-3 text-center">
-                <div className="font-medium text-steel-600 mb-1">Lead Time</div>
-                <div className="text-steel-500">6-8 weeks</div>
-              </div>
-              <div className="bg-steel-50 border border-steel-200 rounded-lg p-3 text-center">
-                <div className="font-medium text-steel-600 mb-1">Warranty</div>
-                <div className="text-steel-500">3 years full</div>
-              </div>
-              <div className="bg-steel-50 border border-steel-200 rounded-lg p-3 text-center">
-                <div className="font-medium text-steel-600 mb-1">Support</div>
-                <div className="text-steel-500">24/7 remote</div>
-              </div>
-            </div>
+            
           </section>
           
           {/* Footer Actions */}
