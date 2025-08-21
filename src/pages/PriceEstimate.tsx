@@ -139,12 +139,14 @@ export default function PriceEstimate() {
             <Accordion type="multiple" className="space-y-4">
               {/* Charger Hardware */}
               <AccordionItem value="charger-hardware" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
-                  <h4 className="font-medium text-steel-600">Charger Hardware</h4>
-                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                <div className="flex justify-between items-center">
+                  <AccordionTrigger className="flex items-center gap-2 hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
+                    <h4 className="font-medium text-steel-600">Charger Hardware</h4>
+                  </AccordionTrigger>
+                  <div className="font-mono font-semibold text-steel-600">
                     {fmtMoney(chargerHardwareCost)}
                   </div>
-                </AccordionTrigger>
+                </div>
                 <AccordionContent className="pb-4">
                   <p className="text-sm text-steel-500 leading-relaxed">
                     Cost of AC and DC charging units, calculated as quantity multiplied by unit price. This represents the hardware itself, not installation.
@@ -156,12 +158,14 @@ export default function PriceEstimate() {
 
               {/* Cable Installation */}
               <AccordionItem value="cable-installation" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
-                  <h4 className="font-medium text-steel-600">Cable Installation (Cable Costs)</h4>
-                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                <div className="flex justify-between items-center">
+                  <AccordionTrigger className="flex items-center gap-2 hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
+                    <h4 className="font-medium text-steel-600">Cable Installation (Cable Costs)</h4>
+                  </AccordionTrigger>
+                  <div className="font-mono font-semibold text-steel-600">
                     {fmtMoney(cableInstallationCost)}
                   </div>
-                </AccordionTrigger>
+                </div>
                 <AccordionContent className="pb-4">
                   <p className="text-sm text-steel-500 leading-relaxed">
                     Working out cabling costs is sometimes described as a dark art. The price is essentially a function of your switchboard's current rating, the charging load, and how far we need to run the wires — but small details in copper sizing and site layout can have an outsized effect. On many sites, cabling can account for up to 60% of total installation costs. To refine pricing, we'll need photos of your mains and distribution boards, along with a clear sense of site layout.
@@ -173,12 +177,14 @@ export default function PriceEstimate() {
 
               {/* Cable Carrier */}
               <AccordionItem value="cable-carrier" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
-                  <h4 className="font-medium text-steel-600">Cable Carrier (Conduit/Tray)</h4>
-                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                <div className="flex justify-between items-center">
+                  <AccordionTrigger className="flex items-center gap-2 hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
+                    <h4 className="font-medium text-steel-600">Cable Carrier (Conduit/Tray)</h4>
+                  </AccordionTrigger>
+                  <div className="font-mono font-semibold text-steel-600">
                     {fmtMoney(carrierCost)}
                   </div>
-                </AccordionTrigger>
+                </div>
                 <AccordionContent className="pb-4">
                   <p className="text-sm text-steel-500 leading-relaxed">
                     Costs of the physical carrier for the cables, as either tray or underground trenching depending on installation type. This ensures cabling is safely supported and compliant, priced per metre.
@@ -190,12 +196,14 @@ export default function PriceEstimate() {
 
               {/* Installation & Commissioning */}
               <AccordionItem value="installation-commissioning" className="border-l-4 border-warm-orange pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
-                  <h4 className="font-medium text-steel-600">Installation & Commissioning</h4>
-                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                <div className="flex justify-between items-center">
+                  <AccordionTrigger className="flex items-center gap-2 hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
+                    <h4 className="font-medium text-steel-600">Installation & Commissioning</h4>
+                  </AccordionTrigger>
+                  <div className="font-mono font-semibold text-steel-600">
                     {fmtMoney(installationCommissioningCost)}
                   </div>
-                </AccordionTrigger>
+                </div>
                 <AccordionContent className="pb-4">
                   <p className="text-sm text-steel-500 leading-relaxed">
                     Labour and engineering services to install equipment, integrate with existing electrical infrastructure, and certify compliance. Includes commissioning and handover.
@@ -236,12 +244,14 @@ export default function PriceEstimate() {
             <Accordion type="multiple" className="mt-6">
               {/* Annual Opex */}
               <AccordionItem value="annual-opex" className="border-l-4 border-steel-400 pl-4 border-0">
-                <AccordionTrigger className="flex justify-between items-center hover:no-underline py-2">
-                  <h4 className="font-medium text-steel-600">Annual Opex (if applicable)</h4>
-                  <div className="font-mono font-semibold text-steel-600 ml-4">
+                <div className="flex justify-between items-center">
+                  <AccordionTrigger className="flex items-center gap-2 hover:no-underline py-2 [&[data-state=open]>svg]:rotate-180">
+                    <h4 className="font-medium text-steel-600">Annual Opex (if applicable)</h4>
+                  </AccordionTrigger>
+                  <div className="font-mono font-semibold text-steel-600">
                     {fmtMoney(metrics.operatingCostPA)}
                   </div>
-                </AccordionTrigger>
+                </div>
                 <AccordionContent className="pb-4">
                   <p className="text-sm text-steel-500 leading-relaxed">
                     Indicative annual operating cost for service, support, and compliance. Not always applicable for every site.
