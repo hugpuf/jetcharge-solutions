@@ -138,11 +138,165 @@ export default function Calculator() {
           <div className="order-1 lg:order-1 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
             <div className="w-full max-w-lg relative">
               <div className="relative animate-float">
-                <img 
-                  src="/lovable-uploads/69500f5e-03a6-41eb-9066-0a984ce128cb.png" 
-                  alt="Isometric line drawing of EV charging station with buildings"
-                  className="w-full h-auto object-contain animate-fade-in relative z-10"
-                />
+                {/* Isometric apartment with EV charging */}
+                <div className="neon-wrap w-full animate-fade-in relative z-10">
+                  <svg viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc" className="w-full h-auto">
+                    <title id="title">Apartment block with street frontage and EV charging</title>
+                    <desc id="desc">Isometric neon line drawing of a five-storey apartment with balconies, street layer, and a side EV pad with two chargers and two cars.</desc>
+
+                    {/* Tokens */}
+                    <defs>
+                      <style>{`
+                        .svg-tube { fill:none; stroke:hsl(var(--steel-600)); stroke-width:6; stroke-linecap:round; stroke-linejoin:round; }
+                        .svg-glow { stroke:hsl(var(--warm-orange)); stroke-width:9.6; filter:url(#outer-glow); opacity:.5; }
+                        .svg-hover { animation: bob 4s ease-in-out infinite; transform-origin:center; }
+                        .svg-pulse { animation: pulse 4s ease-in-out infinite; }
+                        @keyframes bob { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-8px) } }
+                        @keyframes pulse { 0%,100%{ opacity:.42 } 50%{ opacity:.58 } }
+                      `}</style>
+
+                      {/* Outer glow filter */}
+                      <filter id="outer-glow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox">
+                        <feGaussianBlur stdDeviation="12" result="blur"/>
+                        <feMerge>
+                          <feMergeNode in="blur"/>
+                        </feMerge>
+                      </filter>
+
+                      {/* Reusable symbols */}
+                      <symbol id="tree" viewBox="0 0 60 90">
+                        <circle className="svg-tube" cx="30" cy="28" r="20"/>
+                        <circle className="svg-tube" cx="18" cy="40" r="14"/>
+                        <circle className="svg-tube" cx="42" cy="40" r="14"/>
+                        <line   className="svg-tube" x1="30" y1="90" x2="30" y2="54"/>
+                      </symbol>
+
+                      <symbol id="lamp" viewBox="0 0 22 80">
+                        <circle className="svg-tube" cx="11" cy="12" r="8"/>
+                        <line className="svg-tube" x1="11" y1="20" x2="11" y2="78"/>
+                      </symbol>
+
+                      <symbol id="charger" viewBox="0 0 60 160">
+                        <rect className="svg-tube" x="10" y="10" rx="18" ry="18" width="40" height="120"/>
+                        <rect className="svg-tube" x="22" y="30" rx="6" ry="6" width="16" height="26"/>
+                        <path className="svg-tube" d="M40 120 C70 130, 80 135, 92 146"/>
+                      </symbol>
+
+                      <symbol id="car" viewBox="0 0 180 90">
+                        <path className="svg-tube" d="M15 60 L45 30 L120 30 Q150 32 165 48 L168 72 Q130 78 50 78 Q35 78 15 74 Z"/>
+                        <circle className="svg-tube" cx="50" cy="76" r="10"/>
+                        <circle className="svg-tube" cx="130" cy="74" r="10"/>
+                      </symbol>
+
+                      <symbol id="balcony" viewBox="0 0 120 36">
+                        <rect className="svg-tube" x="5" y="8" rx="8" ry="8" width="110" height="20"/>
+                        <line className="svg-tube" x1="25" y1="8" x2="25" y2="28"/>
+                        <line className="svg-tube" x1="60" y1="8" x2="60" y2="28"/>
+                        <line className="svg-tube" x1="95" y1="8" x2="95" y2="28"/>
+                      </symbol>
+
+                      <symbol id="win" viewBox="0 0 40 58">
+                        <rect className="svg-tube" x="5" y="5" rx="8" ry="8" width="30" height="48"/>
+                        <line className="svg-tube" x1="5" y1="29" x2="35" y2="29"/>
+                      </symbol>
+                    </defs>
+
+                    {/* Background */}
+                    <rect x="0" y="0" width="1024" height="1024" fill="transparent"/>
+                    <g className="svg-hover">
+
+                      {/* Ground plate */}
+                      <g className="svg-pulse">
+                        <path className="svg-glow" d="M120 760 L550 960 L980 760 L550 560 Z"/>
+                        <path className="svg-tube" d="M120 760 L550 960 L980 760 L550 560 Z"/>
+                      </g>
+
+                      {/* Street & curb */}
+                      <g className="svg-pulse">
+                        <path className="svg-glow" d="M60 690 L520 900"/>
+                        <path className="svg-tube" d="M60 690 L520 900"/>
+                        <path className="svg-glow" d="M120 660 L580 870"/>
+                        <path className="svg-tube" d="M120 660 L580 870"/>
+                        {/* dashed centerline */}
+                        <g strokeDasharray="32 28">
+                          <path className="svg-glow" d="M160 680 L600 880"/>
+                          <path className="svg-tube" d="M160 680 L600 880"/>
+                        </g>
+                        {/* Lamp + small passing car for scale */}
+                        <use href="#lamp" x="190" y="585" transform="rotate(24 190 585)"/>
+                        <use href="#car"  x="300" y="735" transform="rotate(24 300 735) scale(.6)"/>
+                      </g>
+
+                      {/* Building mass */}
+                      {/* Roof rim */}
+                      <g className="svg-pulse">
+                        <path className="svg-glow" d="M360 180 L700 340 L700 520 L360 360 Z"/>
+                        <path className="svg-tube" d="M360 180 L700 340 L700 520 L360 360 Z"/>
+                      </g>
+                      {/* Left facade */}
+                      <path className="svg-glow" d="M360 360 L360 760 L260 710 L260 310 Z"/>
+                      <path className="svg-tube" d="M360 360 L360 760 L260 710 L260 310 Z"/>
+                      {/* Right facade */}
+                      <path className="svg-glow" d="M360 360 L700 520 L700 920 L360 760 Z"/>
+                      <path className="svg-tube" d="M360 360 L700 520 L700 920 L360 760 Z"/>
+
+                      {/* Storefronts */}
+                      <g transform="translate(270 640) rotate(24)">
+                        <path className="svg-tube" d="M0 0 h80 v26 h-80 Z"/>
+                        <path className="svg-tube" d="M110 0 h80 v26 h-80 Z"/>
+                      </g>
+
+                      {/* Balconies */}
+                      <g transform="translate(300 440) rotate(24)">
+                        <use href="#balcony" x="-40" y="-160"/>
+                        <use href="#balcony" x="-40" y="-110"/>
+                        <use href="#balcony" x="-40" y="-60"/>
+                        <use href="#balcony" x="-40" y="-10"/>
+                      </g>
+
+                      {/* Windows */}
+                      <g transform="translate(520 520) rotate(24)">
+                        <use href="#win" x="0"   y="-160"/>
+                        <use href="#win" x="60"  y="-140"/>
+                        <use href="#win" x="0"   y="-90"/>
+                        <use href="#win" x="60"  y="-70"/>
+                        <use href="#win" x="0"   y="-20"/>
+                        <use href="#win" x="60"  y="0"/>
+                      </g>
+
+                      {/* Street trees */}
+                      <use href="#tree" x="220" y="560" transform="rotate(24 220 560)"/>
+                      <use href="#tree" x="280" y="590" transform="rotate(24 280 590)"/>
+                      <use href="#tree" x="340" y="620" transform="rotate(24 340 620)"/>
+
+                      {/* EV Charging Pad */}
+                      <g className="svg-pulse">
+                        <path className="svg-glow" d="M690 640 L940 760 L780 840 L530 720 Z"/>
+                        <path className="svg-tube" d="M690 640 L940 760 L780 840 L530 720 Z"/>
+                      </g>
+                      {/* Parking bays */}
+                      <path className="svg-tube" d="M560 730 L760 830"/>
+                      <path className="svg-tube" d="M620 700 L820 800"/>
+
+                      {/* Chargers */}
+                      <use href="#charger" x="820" y="640" transform="rotate(24 820 640) scale(.75)"/>
+                      <use href="#charger" x="880" y="670" transform="rotate(24 880 670) scale(.75)"/>
+
+                      {/* Cars */}
+                      <use href="#car" x="560" y="720" transform="rotate(24 560 720) scale(.75)"/>
+                      <use href="#car" x="630" y="685" transform="rotate(24 630 685) scale(.75)"/>
+
+                      {/* Battery indicator */}
+                      <g transform="translate(700 630) rotate(24)">
+                        <rect className="svg-tube" x="0" y="0" rx="8" ry="8" width="80" height="32"/>
+                        <line className="svg-tube" x1="18" y1="8" x2="18" y2="24"/>
+                        <line className="svg-tube" x1="34" y1="8" x2="34" y2="24"/>
+                        <line className="svg-tube" x1="50" y1="8" x2="50" y2="24"/>
+                        <line className="svg-tube" x1="66" y1="8" x2="66" y2="24"/>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
                 {/* Orange glow underneath */}
                 <div className="absolute inset-x-0 bottom-0 h-8 bg-warm-orange/30 blur-xl rounded-full transform translate-y-4 scale-75"></div>
               </div>
